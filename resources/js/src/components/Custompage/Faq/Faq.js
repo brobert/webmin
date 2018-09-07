@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './faq.css';
+import './Faq.css';
 //import {Tab,Tabs} from 'react-bootstrap';
 import { Row, Col, Card, CardBody, CardTitle, TabContent, TabPane, Breadcrumb, BreadcrumbItem, Nav, NavItem, NavLink } from 'reactstrap';
 import {

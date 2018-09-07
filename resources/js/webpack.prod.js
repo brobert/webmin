@@ -12,7 +12,7 @@ module.exports = webpackMerge(commonConfig, {
     mode: 'production',
     output: {
         path: path.join(process.cwd(), '/dist'),
-        publicPath: 'http://themes.potenzaglobalsolutions.com/html/webmin-react-js-admin-dashboard-template/light/',
+        publicPath: 'http://localhost:8000',
         filename: 'index_bundle.js'
     },
    

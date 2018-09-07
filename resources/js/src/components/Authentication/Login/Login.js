@@ -3,7 +3,7 @@ import { auth} from '../../Firebase';
 import { Link } from 'react-router-dom';
 import validators from '../../../validators';
 import {Container,Row,Col} from 'reactstrap'; 
-import './login.css';
+import './Login.css';
 class Login extends React.Component{
   constructor(props){
     super(props);

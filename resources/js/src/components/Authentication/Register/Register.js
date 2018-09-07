@@ -2,7 +2,7 @@ import React from 'react';
 import { auth,db} from '../../Firebase';
 import validators from '../../../validators';
 import { Link } from 'react-router-dom';
-import './register.css';
+import './Register.css';
 import {Row,Col,Container} from 'reactstrap';
 class Register extends React.Component{
     constructor(props){

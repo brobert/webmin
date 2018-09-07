@@ -12,3 +12,12 @@ npm-debug.log
 yarn-error.log
 .env
 .phpunit.result.cache
+.project
+.settings
+.buildpath
+config/debug-server.php
+config/tinker.php
+config/trustedproxy.php
+resources/js/dist/
+resources/views/vendor/
+

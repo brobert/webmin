@@ -3,6 +3,7 @@ import { Row, Col, Card, CardBody, Breadcrumb, BreadcrumbItem } from 'reactstrap
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import Calendar from "react-big-calendar";
 import moment from "moment";
+//import './Eventcalendar.css';
 
 Calendar.setLocalizer(Calendar.momentLocalizer(moment));
 

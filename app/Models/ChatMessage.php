@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class ChatMessage extends Model {
 
     /**
@@ -11,7 +12,8 @@ class ChatMessage extends Model {
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function user() {
-        return $this->hasOne('App\User');
+
+        return $this->belongsTo('App\User');
     }
 
     /**
@@ -19,6 +21,7 @@ class ChatMessage extends Model {
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function chat() {
+
         return $this->belongsTo('App\Models\Chat');
     }
 }

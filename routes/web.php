@@ -13,6 +13,9 @@
 Route::get('/', function () {
     return view('index');
 });
+Route::get('/home', function () {
+    return view('index');
+});
 
 Route::middleware('auth')->prefix('res')->group(function () {
     Route::resources([

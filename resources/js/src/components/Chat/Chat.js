@@ -29,7 +29,7 @@ class Chat extends React.Component {
         .then(
             (res) => {
                 const chats = res.data.data.data;
-                const activeTab = chats.length ? chats[0].id : "";
+                const activeTab = chats.length ? `${chats[0].id}` : "";
                 const name = chats.length ? chats[0].name : "";
                 const authUser = res.data.meta.user || {};
                 this.setState({
@@ -38,6 +38,8 @@ class Chat extends React.Component {
                     name,
                     authUser
                 });
+                
+                console.info('componentWillMount::state: ', this.state);
             }
         );
     }

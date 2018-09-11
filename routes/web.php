@@ -17,10 +17,10 @@ Route::get('/home', function () {
     return view('index');
 });
 
-Route::middleware('auth')->prefix('res')->group(function () {
+Route::middleware('auth')->prefix('res')->namespace('Api')->group(function () {
     Route::resources([
-        'chat' => 'ChatController'
-        // 'posts' => 'PostController'
+        'chat' => 'ChatController',
+        'chat_message' => 'ChatMessageController'
     ]);
 });
 Auth::routes();

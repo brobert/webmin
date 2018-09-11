@@ -47,60 +47,54 @@ const listofPages = [
 
 const Routers = () => {
     
-    if(listofPages.indexOf(location.hash) > -1) 
-    {
+    if(listofPages.indexOf(location.hash) > -1) {
         return(
             <Basepages>
-                
-                    <Route  path="/login" component={Login} />
-                    <Route path="/register" component={Register}/>
-                 
+                <Route path="/login" component={Login} />
+                <Route path="/register" component={Register}/>
             </Basepages>
         )
-    }
-    else
-    {
-            return(
-                    <Base>
-                        <Switch>
-                            
-                            <Route exact path="/" component={Dashboard}/> 
-                            <Route  path="/accordion" component={Accordions}/>
-                            <Route  path="/alerts" component={Alerts} />
-                            <Route  path="/buttons" component={Buttons} />
-                            <Route  path="/colors" component={Colors} />
-                            <Route  path="/dropdown" component={Dropdowns} />
-                            <Route  path="/typographys" component={Typographys} />
-                            <Route  path="/navs" component={Navs} />
-                            <Route  path="/model" component={Models} />
-                            <Route  path="/fontawesome" component={Fontawesome} />
-                            <Route  path="/switchs" component={Switchs} />
-                            <Route  path="/lists" component={Lists} />
-                            <Route  path="/ratings" component={Ratings} />
-                            <Route  path="/nicescroll" component={Nicescroll} />
-                            <Route  path="/chartjs" component={Chartjs} />
-                            <Route  path="/tabs" component={Tabss} />
-                            <Route  path="/progess" component={Progressbar} />
-                            <Route  path="/popover_tooltips" component={PopoverTooltips} />
-                            <Route  path="/datepicker" component={DatePickers} />
-                            <Route  path="/maps" component={Mapss} />
-                            <Route path="/datatable" component={Datatables} />
-                            <Route path="/tables" component={Tables} />
-                            <Route path="/forminput" component={Forminputs} />
-                            <Route path="/formvalidation" component={Formvalidations} />
-                            <Route path="/inputgroup" component={Formgroups} /> 
-                            <Route path="/error" component={Errors} />
-                            <Route  path="/eventcalendar" component={Eventcalendar} /> 
-                            <Route path="/blankpage" component={Blankpage}/>
-                            <Route path="/faq" component={Faq}/>
-                            <Route path="/contacts" component={Contacts}/>
-                            <Route path="/invoice" component={Invoice}/>
-                            <Route path="/widget" component={Widgets} />
-                            <Route path="/chat" component={Chat} />
-                            <Route path="/mailbox" component={Mail} />
-                        </Switch> 
-                    </Base>
-            );
+    } else {
+        return(
+            <Base>
+                <Switch>
+                    <Route exact path="/" component={Dashboard}/> 
+                    <Route path="/accordion" component={Accordions}/>
+                    <Route path="/alerts" component={Alerts} />
+                    <Route path="/buttons" component={Buttons} />
+                    <Route path="/colors" component={Colors} />
+                    <Route path="/dropdown" component={Dropdowns} />
+                    <Route path="/typographys" component={Typographys} />
+                    <Route path="/navs" component={Navs} />
+                    <Route path="/model" component={Models} />
+                    <Route path="/fontawesome" component={Fontawesome} />
+                    <Route path="/switchs" component={Switchs} />
+                    <Route path="/lists" component={Lists} />
+                    <Route path="/ratings" component={Ratings} />
+                    <Route path="/nicescroll" component={Nicescroll} />
+                    <Route path="/chartjs" component={Chartjs} />
+                    <Route path="/tabs" component={Tabss} />
+                    <Route path="/progess" component={Progressbar} />
+                    <Route path="/popover_tooltips" component={PopoverTooltips} />
+                    <Route path="/datepicker" component={DatePickers} />
+                    <Route path="/maps" component={Mapss} />
+                    <Route path="/datatable" component={Datatables} />
+                    <Route path="/tables" component={Tables} />
+                    <Route path="/forminput" component={Forminputs} />
+                    <Route path="/formvalidation" component={Formvalidations} />
+                    <Route path="/inputgroup" component={Formgroups} /> 
+                    <Route path="/error" component={Errors} />
+                    <Route path="/eventcalendar" component={Eventcalendar} /> 
+                    <Route path="/blankpage" component={Blankpage}/>
+                    <Route path="/faq" component={Faq}/>
+                    <Route path="/contacts" component={Contacts}/>
+                    <Route path="/invoice" component={Invoice}/>
+                    <Route path="/widget" component={Widgets} />
+                    <Route path="/chat" component={Chat} />
+                    <Route path="/mailbox" component={Mail} />
+                </Switch> 
+            </Base>
+        );
     }
 }
 export default Routers;

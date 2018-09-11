@@ -19,7 +19,7 @@ class UserSeeder extends Seeder {
             factory(App\User::class)->create(array(
                 'name' => env('ADMIN_USER_NAME'),
                 'email' => env('ADMIN_USER_EMAIL'),
-                'password' => env('ADMIN_USER_PASS')
+                'password' => bcrypt(env('ADMIN_USER_PASS'))
             ));
         }
 

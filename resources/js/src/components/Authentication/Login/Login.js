@@ -43,6 +43,7 @@ class Login extends React.Component{
         }
       });
   }
+  
   isFormValid() {
     let status = true;
     Object.keys(this.validators).forEach((field) => {
@@ -54,6 +55,7 @@ class Login extends React.Component{
     });
     return status;
   }
+  
   displayValidationErrors(fieldName) {
     const validator = this.validators[fieldName];
     const result = '';
@@ -69,6 +71,7 @@ class Login extends React.Component{
     }
     return result;
   }
+  
   login(event){
     const {
       email,
@@ -121,7 +124,6 @@ class Login extends React.Component{
                         <div className="remember-checkbox mb-30">
                           <input type="checkbox" className="form-control" name="two" id="two" />
                           <label htmlFor="two"> Remember me</label>
-                         
                         </div>
                       </div>
                       <a  onClick={this.login} className={`button   ${this.isFormValid() ? '' : 'disabled'}`}>

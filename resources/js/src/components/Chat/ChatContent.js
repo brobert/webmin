@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { TabPane } from 'reactstrap';
+import Loader from 'react-loader';
 
 class ChatContent extends React.Component {
 
@@ -69,7 +70,8 @@ class ChatContent extends React.Component {
                         const messageDate = message.created_at.slice(0,10);
                         const showDate = lastDate !== messageDate;
                         if (lastTime !== messageTime || showDate) {
-                            chatMessages.push(<span className="time d-block mt-20px mb-20 text-center text-gray">{showDate ? messageDate : ''} {messageTime} </span>)
+                            const extraClass = showDate ? 'date' : '';
+                            chatMessages.push(<span className={`time ${extraClass} d-block mt-20px mb-20 text-center text-gray`}>{showDate ? messageDate : ''} {messageTime} </span>)
                             lastTime = messageTime;
                             lastDate = messageDate;
                         }
@@ -98,10 +100,16 @@ class ChatContent extends React.Component {
             }
         }
 
+        const chatViewStyle = {
+            minHeight: '10vh',
+        };
+
         return (
             <TabPane tabId={`${chat.id}`}>
-                <div className="chats chatView">
+                <div className="chats chatView" style={chatViewStyle}>
+                <Loader loaded={this.state.loaded}>
                     {chatMessages}
+                    </Loader>
                 </div>
             </TabPane>
         );

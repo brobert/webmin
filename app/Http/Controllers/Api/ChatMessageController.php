@@ -42,7 +42,17 @@ class ChatMessageController extends ApiController {
      */
     public function store(Request $request) {
 
-        //
+        $chatId = $request->query('chatid');
+
+        $msg = new ChatMessage();
+
+        $msg->chat_id = $chatId;
+        $msg->user_id = $request->user()->id;
+        $msg->message = $request->get('text');
+
+        $msg->save();
+
+        return $msg;
     }
 
     /**

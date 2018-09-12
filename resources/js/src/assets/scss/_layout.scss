@@ -411,6 +411,10 @@ select.form-control:not([size]):not([multiple]) {
 
 /*chats*/
 .chats {
+  .date {
+    border-top: solid 1px $secondary;
+    padding-top: $font-xs;
+  }
   .chat-wrapper {
     margin-bottom: 20px;
 

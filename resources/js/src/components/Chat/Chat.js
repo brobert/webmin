@@ -21,6 +21,7 @@ class Chat extends React.Component {
             dropdownbarOpen: false,
             chats: [],
             authUser: false,
+            msgText: "",
         };
     }
 
@@ -69,6 +70,24 @@ class Chat extends React.Component {
         this.setState(prevState => ({
             chatdropdown: !this.state.chatdropdown
         }));
+    }
+    
+    setMessage(event) {
+        console.info('>>>>>>>>>>>>>>>>>>>>>>>>', event.target.value);
+        this.setState({
+            msgText: event.target.value,
+        });
+    }
+
+    storeChatMessage() {
+
+        console.info('storeChatMessage::state: ', this);
+        axios.post(`/res/chat_message?chatid=${this.state.activeTab}`, {text: this.state.msgText})
+        .then(
+            (res) => {
+                console.info('storeChatMessage::res: ', res);
+            }
+        );
     }
     
     /**
@@ -160,10 +179,17 @@ class Chat extends React.Component {
                                                         <div className="chat-input-icon">
                                                             <a className="text-muted" href="javascript:void(0);"><i className="fa fa-smile-o" /> </a>
                                                         </div>
-                                                        <textarea className="form-control input-message scrollbar" placeholder="Type here...*" rows={2} name="message" defaultValue={""} />
+                                                        <textarea 
+                                                            className="form-control input-message scrollbar"
+                                                            placeholder="Type here...*"
+                                                            rows={2}
+                                                            name="message"
+                                                            defaultValue={this.state.msgText}
+                                                            onChange={(ev) => this.setMessage(ev)}
+                                                        />
                                                     </div>
                                                     <div className="chat-button">
-                                                        <a href="javascript:void(0);"> <i className="ti-clip" /></a>
+                                                        <a href="javascript:void(0);" onClick={(ev) => this.storeChatMessage(ev)}> <i className="ti-clip" /></a>
                                                     </div>
                                                 </div>
                                             </div>

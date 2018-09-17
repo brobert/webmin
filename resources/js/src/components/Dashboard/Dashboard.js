@@ -6,7 +6,10 @@ import moment from 'moment';
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import { Card,CardBody,CardTitle,TabContent, TabPane, Nav, NavItem, NavLink, Row, Col ,Dropdown, DropdownToggle, DropdownMenu, DropdownItem ,Breadcrumb ,BreadcrumbItem } from 'reactstrap';
 import './Dashboard.css';
+import InfoPanel from './partials/InfoPanel';
 import classnames from 'classnames';
+import PageTitle from './../Layout/PageTitle';
+
 Calendar.setLocalizer(Calendar.momentLocalizer(moment));
 
 const data = {
@@ -36,25 +39,36 @@ const data = {
         ]
     }]
 };
+
 var rFactor = function () {
-    return Math.round(Math.random() * 100);
+    return Math.round(Math.random() * 1000);
 };
-var barData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+
+const barData = function() {
+return {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
     datasets: [{
         label: 'Apple',
         backgroundColor: '#36a2eb',
         borderColor: '#36a2eb',
-        data: [rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor()]
+        data: [rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor()]
     },
     {
         label: 'Google',
         backgroundColor: '#FF6384',
         borderColor: '#FF6384',
-        data: [rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor()]
+        data: [rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor()]
+    },
+    {
+        label: 'Twitter',
+        backgroundColor: '#FF63FF',
+        borderColor: '#FFFF84',
+        data: [rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor()]
     }],
 };
-var lineData = {
+}
+
+const lineData = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [{
         label: 'Income',
@@ -144,12 +158,14 @@ class Dashboard extends React.Component {
             dropdownbarOpen: false,
             dropdownlineOpen: false,
             activeTab: '1',
-            widths:150
+            widths:150,
+            barData: barData(),
         };
         this.onEventResize = this.onEventResize.bind(this);
         this.onEventDrop = this.onEventDrop.bind(this);
-
+	this.onBarRefresh = this.onBarRefresh.bind(this);
     }
+
     dropdownbarOpen() {
         this.setState(prevState => ({
             dropdownbarOpen: !prevState.dropdownbarOpen
@@ -179,6 +195,12 @@ class Dashboard extends React.Component {
     onEventDrop({ event, start, end, allDay }) {
         console.log(start);
     };
+    
+    onBarRefresh() {
+        this.setState({
+	    barData: barData(),
+	})
+    }
     componentWillMount() {
         this.setState(LinechartState);
         this.setState(BarchartState);
@@ -188,101 +210,48 @@ class Dashboard extends React.Component {
         const DnDCalendar = withDragAndDrop(Calendar);
         return (
             <div>
-                <div className="page-title">
-                    <Row>
-                        <Col sm={6}>
-                            <h4 className="mb-0"> Dashboard</h4>
-                            <div className='delete-button' onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) this.onCancel(item) }} />
-                        </Col>
-                        <Col sm={6}>
-                        <Breadcrumb className="float-left float-sm-right">
-                                    <BreadcrumbItem><a href="#">Home</a></BreadcrumbItem>
-                                    <BreadcrumbItem active>Dashboard</BreadcrumbItem>
-                            </Breadcrumb>
-                        </Col>
-                    </Row>
-                </div>
+                <PageTitle pageTitle="Dashboard" crumbs={[]} />
                 {/* <!-- widgets --> */}
                 <Row>
                     <Col xl={3} lg={6} md={6} className="mb-30" >
-                        <Card className="card-statistics h-100">
-                            <CardBody>
-                                <div className="clearfix">
-                                    <div className="float-left">
-                                        <span className="text-danger">
-                                            <i className="fa fa-bar-chart-o highlight-icon" aria-hidden="true"></i>
-                                        </span>
-                                    </div>
-                                    <div className="float-right text-right">
-                                        <p className="card-text text-dark">Visitors</p>
-                                        <h4>65,650</h4>
-                                    </div>
-                                </div>
-                                <p className="text-muted pt-3 mb-0 mt-2 border-top">
-                                    <i className="fa fa-exclamation-circle mr-1" aria-hidden="true"></i> 81% lower growth
-                            </p>
-                            </CardBody>
-                        </Card>
+                        <InfoPanel 
+                            label="Visitors"
+                            value="65,650"
+                            theme="danger"
+                            icon="bar-chart-o"
+                            exclamationText=" 81% lower growth"
+                            exclamationIcon="exclamation-circle"
+                        />
                     </Col>
-                    <Col xl={3} lg={6} md={6} className="mb-30">
-                        <Card className="card-statistics h-100">
-                            <CardBody>
-                                <div className="clearfix">
-                                    <div className="float-left">
-                                        <span className="text-warning">
-                                            <i className="fa fa-shopping-cart highlight-icon" aria-hidden="true"></i>
-                                        </span>
-                                    </div>
-                                    <div className="float-right text-right">
-                                        <p className="card-text text-dark">Orders</p>
-                                        <h4>656</h4>
-                                    </div>
-                                </div>
-                                <p className="text-muted pt-3 mb-0 mt-2 border-top">
-                                    <i className="fa fa-bookmark-o mr-1" aria-hidden="true"></i> Total sales
-                            </p>
-                            </CardBody>
-                        </Card>
+                    <Col xl={3} lg={6} md={6} className="mb-30" >
+                        <InfoPanel 
+                            label="Orders"
+                            value="656"
+                            theme="warning"
+                            icon="shopping-cart "
+                            exclamationText=" Total sales"
+                            exclamationIcon="bookmark-o"
+                        />
                     </Col>
-                    <Col xl={3} lg={6} md={6} className="mb-30">
-                        <Card className="card-statistics h-100">
-                            <CardBody>
-                                <div className="clearfix">
-                                    <div className="float-left">
-                                        <span className="text-success">
-                                            <i className="fa fa-dollar highlight-icon" aria-hidden="true"></i>
-                                        </span>
-                                    </div>
-                                    <div className="float-right text-right">
-                                        <p className="card-text text-dark">Revenue</p>
-                                        <h4>$65656</h4>
-                                    </div>
-                                </div>
-                                <p className="text-muted pt-3 mb-0 mt-2 border-top">
-                                    <i className="fa fa-calendar mr-1" aria-hidden="true"></i> Sales Per Week
-                            </p>
-                            </CardBody>
-                        </Card>
+                    <Col xl={3} lg={6} md={6} className="mb-30" >
+                        <InfoPanel 
+                            label="Revenue"
+                            value="$65656"
+                            theme="success"
+                            icon="dollar"
+                            exclamationText=" Sales Per Week"
+                            exclamationIcon="calendar"
+                        />
                     </Col>
-                    <Col xl={3} lg={6} md={6} className="mb-30">
-                        <Card className="card-statistics h-100">
-                            <CardBody>
-                                <div className="clearfix">
-                                    <div className="float-left">
-                                        <span className="text-primary">
-                                            <i className="fa fa-twitter highlight-icon" aria-hidden="true"></i>
-                                        </span>
-                                    </div>
-                                    <div className="float-right text-right">
-                                        <p className="card-text text-dark">Followers</p>
-                                        <h4>62,500+</h4>
-                                    </div>
-                                </div>
-                                <p className="text-muted pt-3 mb-0 mt-2 border-top">
-                                    <i className="fa fa-repeat mr-1" aria-hidden="true"></i> Just Updated
-                                </p>
-                            </CardBody>
-                        </Card>
+                    <Col xl={3} lg={6} md={6} className="mb-30" >
+                        <InfoPanel 
+                            label="Followers"
+                            value="62,500+"
+                            theme="primary"
+                            icon="twitter"
+                            exclamationText=" Just Updated"
+                            exclamationIcon="repeat"
+                        />
                     </Col>
                 </Row>
 
@@ -296,7 +265,7 @@ class Dashboard extends React.Component {
                                         <i className="ti-more" />
                                     </DropdownToggle>
                                     <DropdownMenu>
-                                        <DropdownItem><i className="text-primary ti-reload" />Refresh</DropdownItem>
+                                        <DropdownItem onClick={this.onBarRefresh}><i className="text-primary ti-reload" />Refresh</DropdownItem>
                                         <DropdownItem><i className="text-secondary ti-eye" />View all</DropdownItem>
                                     </DropdownMenu>
                                 </Dropdown>
@@ -306,19 +275,43 @@ class Dashboard extends React.Component {
                                         <CardTitle>Market summary</CardTitle>
                                     </div>
                                     <div className="row h-100 justify-content-center align-items-center">
-                                        <div className="col-4">
-                                        <h6>Apple</h6>
-                                        <b className="text-info">+ 82.24 % </b>
+                                        <div className="col-4 text-center">
+                                            <h6>Apple</h6>
+                                            <b className="text-info">+ 82.24 % </b>
                                         </div>
                                         
-                                        <div className="col-4">
-                                        <h6>Google</h6>
-                                        <b className="text-warning">+ 24.86 % </b>
+                                        <div className="col-4 text-center">
+                                            <h6>Google</h6>
+                                            <b className="text-warning">+ 24.86 % </b>
+                                        </div>
+                                        
+                                        <div className="col-4 text-center">
+                                            <h6>Twitter</h6>
+                                            <b className="text-warning">+ 78.86 % </b>
                                         </div>
                                     </div>
                             
                             <div className="chart-wrapper" style={{height: 350}}>
-                                <Bar data={barData} width={this.state.widths} options={{maintainAspectRatio: false, legend: {display: true, labels: {fontFamily: "Poppins"}}, scales: {yAxes: [{gridLines: {display: false}, ticks:{fontFamily: "Poppins"}}], xAxes: [{gridLines: {display: false},ticks:{fontFamily: "Poppins"}}]}}}  className="scrollbar-x text-center" />
+                                <Bar
+                                    data={this.state.barData}
+                                    width={this.state.widths}
+                                    options={
+                                        {
+                                            maintainAspectRatio: false,
+                                            legend: {
+                                                display: true,
+                                                labels: {
+                                                    fontFamily: "Poppins"
+                                                }
+                                            },
+                                            scales: {
+                                                yAxes: [{gridLines: {display: false}, ticks:{fontFamily: "Poppins"}}],
+                                                xAxes: [{gridLines: {display: false},ticks:{fontFamily: "Poppins"}}]
+                                            }
+                                        }
+                                    }
+                                    className="scrollbar-x text-center" 
+                                />
                             </div>
                             </CardBody>
                         </Card>

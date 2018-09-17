@@ -2,6 +2,7 @@ import React from 'react';
 import {Row,Col,Card,CardBody,NavItem,Nav,Tab,MenuItem,Breadcrumb,BreadcrumbItem,Dropdown,DropdownItem,DropdownMenu,DropdownToggle,TabContent,TabPane } from 'reactstrap';
 import { Editor } from '@tinymce/tinymce-react';
 import ScrollArea  from 'react-scrollbar';
+import PageTitle from './../Layout/PageTitle';
 import './Mailbox.css';
 
 class Mailbox extends React.Component{
@@ -19,8 +20,8 @@ class Mailbox extends React.Component{
             chatdropdown:false,
             mainlist:'Inbox'
           };
-        }
-      
+    }
+
     toggle(tab,name) {
         if (this.state.activeTab !== tab) {
         this.setState({
@@ -29,6 +30,7 @@ class Mailbox extends React.Component{
         });
         }
     }
+
     mainlists(tab) {
         if (this.state.mainlist !== tab) {
         this.setState({
@@ -36,33 +38,22 @@ class Mailbox extends React.Component{
         });
         }
     }
+
     chatdropdown()
     {
       this.setState(prevState => ({
         chatdropdown:!this.state.chatdropdown
       }));
     }
+
     onChange(content) {
       console.log('onChange', content);
     }
-  
+
     render(){
         return(
-
             <div>
-            <div className="page-title">
-                <Row>
-                     <Col sm={6}>
-                         <h4 className="mb-0"> Mail Box</h4>
-                     </Col>
-                     <Col sm={6}>
-                           <Breadcrumb className="pt-0 pr-0 float-left float-sm-right">
-                                      <BreadcrumbItem><a href="javascript:void(0);">Home</a></BreadcrumbItem>
-                                      <BreadcrumbItem active>Mail box</BreadcrumbItem>
-                              </Breadcrumb>     
-                     </Col>
-                 </Row>
-            </div>
+            <PageTitle pageTitle="Mail Box" crumbs={[{to: 'mailbox', title: 'Mail Box'}]} />
             {/* main body */} 
             <Row>   
               <Col md={12} className="mb-30">     
@@ -860,30 +851,30 @@ class Mailbox extends React.Component{
                                 </div>
                                 </TabPane>
                                 <TabPane tabId="9">
-                                <div className="mail-body">
-                                <div className="mb-4 d-block">
-                                    <h4 className="d-inline-block">We know this in our </h4><span className="badge badge-pill badge-danger ml-3">Friend </span>
-                                </div>
-                                <div className="media px-2">
-                                    <div className="position-relative">
-                                    <img className="img-fluid mr-15 avatar-small" src="assets/images/team/03.jpg" alt="img-fluid" />
-                                    </div> 
-                                    <div className="media-body">
-                                    <h6 className="mt-0 d-inline-block">{this.state.name}, </h6> <a className="pl-2 text-muted" href="javascript:void(0);">paulflavius78@gmail.com</a> 
-                                    <p className="text-dark"> To <b>Me</b> </p>
+                                    <div className="mail-body">
+                                        <div className="mb-4 d-block">
+                                            <h4 className="d-inline-block">We know this in our </h4><span className="badge badge-pill badge-danger ml-3">Friend </span>
+                                        </div>
+                                        <div className="media px-2">
+                                            <div className="position-relative">
+                                            <img className="img-fluid mr-15 avatar-small" src="assets/images/team/03.jpg" alt="img-fluid" />
+                                            </div> 
+                                            <div className="media-body">
+                                            <h6 className="mt-0 d-inline-block">{this.state.name}, </h6> <a className="pl-2 text-muted" href="javascript:void(0);">paulflavius78@gmail.com</a> 
+                                            <p className="text-dark"> To <b>Me</b> </p>
+                                            </div>
+                                        </div>
+                                        <div className="mt-3">
+                                            <p>Hi Sir,</p>
+                                            <p>Give yourself the power of responsibility</p>
+                                            <p>Make a list of your achievements toward your long-term goal and remind yourself that intentions don’t count, only action’s.</p>
+                                            <p className="mt-20">The first thing to remember about success is that it is a process – nothing more, nothing less. There is really no magic to it and it’s not reserved only for a select few people. As such, success really has nothing to do with luck, coincidence or fate. It really comes down to understanding the steps in the process and then executing on those steps.
+                                            There are basically six key areas to higher achievement. Some people will tell you there are four while others may tell you there are eight. One thing for certain though, is that irrespective of the number of steps the experts talk about, they all originate from the same roots.</p>
+                                            <div className="divider my-4" />
+                                            <Editor apiKey="tw738oi7eejqelkvij9eko7n5fnt0xd7v90seimw8zjvehzc" init={{ plugins: 'link image code',toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code',branding: false}}/>
+                                            <a className="button black mt-3" href="javascript:void(0);">Send</a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="mt-3">
-                                    <p>Hi Sir,</p>
-                                    <p>Give yourself the power of responsibility</p>
-                                    <p>Make a list of your achievements toward your long-term goal and remind yourself that intentions don’t count, only action’s.</p>
-                                    <p className="mt-20">The first thing to remember about success is that it is a process – nothing more, nothing less. There is really no magic to it and it’s not reserved only for a select few people. As such, success really has nothing to do with luck, coincidence or fate. It really comes down to understanding the steps in the process and then executing on those steps.
-                                    There are basically six key areas to higher achievement. Some people will tell you there are four while others may tell you there are eight. One thing for certain though, is that irrespective of the number of steps the experts talk about, they all originate from the same roots.</p>
-                                    <div className="divider my-4" />
-                                    <Editor apiKey="tw738oi7eejqelkvij9eko7n5fnt0xd7v90seimw8zjvehzc" init={{ plugins: 'link image code',toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code',branding: false}}/>
-                                    <a className="button black mt-3" href="javascript:void(0);">Send</a>
-                                </div>
-                                </div>
                                 </TabPane>
                         </TabContent>
                       </Col>

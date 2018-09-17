@@ -1,27 +1,27 @@
-
 import React,{Component} from 'react';
 import { Link } from 'react-router-dom';
 class Header extends Component{
 
     constructor(props) {
         super(props);
-      
+
         this.state = {
-          toggleactive: false,
-          defaultValue: 1
+            toggleactive: false,
+            defaultValue: 1
         };
         this.togglebutton = this.togglebutton.bind(this);
         console.log(process.env.PUBLIC_URL);
         console.log(process.env.NODE_ENV);
-      }
-      togglebutton(toggleactive) {
+    }
+
+    togglebutton(toggleactive) {
         this.props.updateParent();
-      };
+    };
  
     render(){
         return(
               <nav className="admin-header navbar navbar-default col-lg-12 col-12 p-0 fixed-top d-flex flex-row"> 
-                    
+
                     <div className="text-left navbar-brand-wrapper">
                       <Link className="navbar-brand brand-logo" to="/"><img src="assets/images/logo-dark.png" alt="" /></Link>
                       <Link className="navbar-brand brand-logo-mini" to="/"><img src="assets/images/logo-icon-dark.png"  alt="" /></Link>

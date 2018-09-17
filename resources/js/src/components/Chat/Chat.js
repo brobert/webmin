@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Row, Col, NavItem, Nav, Dropdown, Breadcrumb, BreadcrumbItem, DropdownItem, DropdownMenu, DropdownToggle, TabContent, TabPane } from 'reactstrap';
+import PageTitle from './../Layout/PageTitle';
 import ScrollArea from 'react-scrollbar';
 
 //import axios from 'axios';
@@ -39,7 +41,7 @@ class Chat extends React.Component {
                     name,
                     authUser
                 });
-                
+
                 console.info('componentWillMount::state: ', this.state);
             }
         );
@@ -52,7 +54,7 @@ class Chat extends React.Component {
             })
         );
     }
-    
+
     dropdownItemClick(a, s, d) {
         console.info('---dropdownItemClick', a, s, d);
     }
@@ -73,7 +75,6 @@ class Chat extends React.Component {
     }
     
     setMessage(event) {
-        console.info('>>>>>>>>>>>>>>>>>>>>>>>>', event.target.value);
         this.setState({
             msgText: event.target.value,
         });
@@ -81,15 +82,16 @@ class Chat extends React.Component {
 
     storeChatMessage() {
 
-        console.info('storeChatMessage::state: ', this);
         axios.post(`/res/chat_message?chatid=${this.state.activeTab}`, {text: this.state.msgText})
         .then(
             (res) => {
-                console.info('storeChatMessage::res: ', res);
+                this.setState({
+                    msgText: '',
+                });
             }
         );
     }
-    
+
     /**
      * Render method
      */
@@ -100,32 +102,30 @@ class Chat extends React.Component {
         let chatContents = [];
 
         this.state.chats.map(
-            (chat) => {
+            (chat, idx) => {
                 chatSwitchers.push (
-                    <ChatSwitcher onClick={this.toggle} chat={chat} authUser={this.state.authUser} />
+                    <ChatSwitcher 
+                        key={`${idx}`} 
+                        onClick={this.toggle} 
+                        chat={chat} 
+                        authUser={this.state.authUser} 
+                    />
                 );
 
                 chatContents.push(
-                    <ChatContent chat={chat} authUser={this.state.authUser} />
+                    <ChatContent 
+                        key={`${idx}`} 
+                        chat={chat} 
+                        active={parseInt(chat.id,10) === parseInt(this.state.activeTab, 10)} 
+                        authUser={this.state.authUser} 
+                    />
                 );
             }
         );
 
         return (
             <div>
-                <div className="page-title">
-                    <Row>
-                        <Col sm={6}>
-                            <h4 className="mb-0"> Chat</h4>
-                        </Col>
-                        <Col sm={6}>
-                            <Breadcrumb className="float-left float-sm-right">
-                            <BreadcrumbItem><a href="javascript:void(0);">Home</a></BreadcrumbItem>
-                            <BreadcrumbItem active>Chat</BreadcrumbItem>
-                            </Breadcrumb>
-                        </Col>
-                    </Row>
-                </div>
+                <PageTitle pageTitle="Chat" crumbs={[{to: 'chat', title: 'Chat'}]} />
                 {/* main body */}
                 <Row>
                     <Col lg={12} className="mb-30">

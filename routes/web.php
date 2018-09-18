@@ -26,3 +26,7 @@ Route::middleware('auth')->prefix('res')->namespace('Api')->group(function () {
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
+
+Route::fallback(function () {
+    return View::make('index');
+});

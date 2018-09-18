@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Row, Col, NavItem, Nav, Dropdown, Breadcrumb, BreadcrumbItem, DropdownItem, DropdownMenu, DropdownToggle, TabContent, TabPane } from 'reactstrap';
 import PageTitle from './../Layout/PageTitle';
 import ScrollArea from 'react-scrollbar';
@@ -24,6 +24,7 @@ class Chat extends React.Component {
             chats: [],
             authUser: false,
             msgText: "",
+            unauthorized: false,
         };
     }
 
@@ -43,6 +44,13 @@ class Chat extends React.Component {
                 });
 
                 console.info('componentWillMount::state: ', this.state);
+            }
+        ).catch(
+            (error) => {
+                console.info('UUUUUUUUUUUUUUUU', error.response);
+                this.setState({
+                    unauthorized: true,
+                });
             }
         );
     }
@@ -67,13 +75,13 @@ class Chat extends React.Component {
             });
         }
     }
-    
+
     chatdropdown() {
         this.setState(prevState => ({
             chatdropdown: !this.state.chatdropdown
         }));
     }
-    
+
     setMessage(event) {
         this.setState({
             msgText: event.target.value,
@@ -89,7 +97,7 @@ class Chat extends React.Component {
                     msgText: '',
                 });
             }
-        );
+        )
     }
 
     /**
@@ -97,6 +105,12 @@ class Chat extends React.Component {
      */
     render() {
         console.info('STATE CHANGE', this.state);
+        
+        if (this.state.unauthorized) {
+            return (
+                <Redirect to={{pathname: '/login'}}/>
+    		);
+        }
 
         let chatSwitchers = [];
         let chatContents = [];

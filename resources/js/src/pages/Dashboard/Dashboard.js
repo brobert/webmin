@@ -41,7 +41,7 @@ const data = {
 };
 
 var rFactor = function () {
-    return Math.round(Math.random() * 1000);
+    return Math.round(Math.random() * 300);
 };
 
 const barData = function() {

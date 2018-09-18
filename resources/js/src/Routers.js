@@ -3,6 +3,12 @@ import React from 'react';
 import {Switch,Route} from 'react-router-dom';
 import Base from './components/Layout/Base';
 import Basepages from './components/Layout/Basepages';
+
+// import pages
+import Dashboard from './pages/Dashboard/Dashboard';
+
+
+// import components
 import Alerts from './components/Elements/Alert/Alerts';
 import Buttons from './components/Elements/Button/Buttons';
 import Colors from './components/Elements/Color/Colors';
@@ -35,7 +41,6 @@ import Blankpage from './components/Custompage/Blankpage/Blankpage';
 import Faq from './components/Custompage/Faq/Faq';
 import Contacts from './components/Custompage/Contacts/Contacts';
 import Invoice from './components/Custompage/Invoice/Invoice';
-import Dashboard from './components/Dashboard/Dashboard';
 import Widgets from './components/Widgets/Widgets';
 import Chat from './components/Chat/Chat';
 import Mail from './components/MailBox/Mailbox';

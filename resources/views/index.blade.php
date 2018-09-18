@@ -12,9 +12,9 @@
     <base href="/" />
     <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:200,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900">
     <link rel="shortcut icon" href="assets/images/favicon.ico" />
-  <link href="http://localhost:8000/css/main.css" rel="stylesheet"></head>
+  <link href="css/main.css" rel="stylesheet"></head>
   <body>
     <div id="root"></div>
-  <script type="text/javascript" src="http://localhost:8000/js/main.js"></script></body>
+  <script type="text/javascript" src="js/main.js"></script></body>
 
 </html>

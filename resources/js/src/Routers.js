@@ -45,14 +45,14 @@ import Widgets from './components/Widgets/Widgets';
 import Chat from './components/Chat/Chat';
 import Mail from './components/MailBox/Mailbox';
 const listofPages = [
-    '#/login',
-    '#/register'
+    '/login',
+    '/register'
     
 ];
 
 const Routers = () => {
-    
-    if(listofPages.indexOf(location.hash) > -1) {
+
+    if(listofPages.indexOf(location.pathname) > -1) {
         return(
             <Basepages>
                 <Route path="/login" component={Login} />

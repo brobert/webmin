@@ -21,3 +21,6 @@ config/trustedproxy.php
 resources/js/dist/
 resources/views/vendor/
 
+/public/assets
+/public/css/main.css
+/public/js/main.js

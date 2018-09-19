@@ -23,7 +23,7 @@ Route::middleware('auth')->prefix('res')->namespace('Api')->group(function () {
         'chat_message' => 'ChatMessageController'
     ]);
 });
-Auth::routes();
+// Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
 

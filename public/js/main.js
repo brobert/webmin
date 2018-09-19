@@ -1,1 +1,0 @@
-../../resources/js/dist/index_bundle.js

@@ -11,14 +11,14 @@ module.exports = webpackMerge(commonConfig, {
 
 
     output: {
-        path: path.join(process.cwd(), '/dist'),
+        path: path.join(process.cwd(), '/../../public'),
         publicPath: 'http://localhost:8000/',
-        filename: 'index_bundle.js'
+        filename: 'js/[name].js'
     },
 
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new ExtractTextPlugin('[name].css')
+        new ExtractTextPlugin('css/[name].css')
     ],
 
     devServer: {

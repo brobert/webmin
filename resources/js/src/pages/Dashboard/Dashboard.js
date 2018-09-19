@@ -8,7 +8,7 @@ import { Card,CardBody,CardTitle,TabContent, TabPane, Nav, NavItem, NavLink, Row
 import './Dashboard.css';
 import InfoPanel from './partials/InfoPanel';
 import classnames from 'classnames';
-import PageTitle from './../Layout/PageTitle';
+import PageTitle from './../../components/Layout/PageTitle';
 
 Calendar.setLocalizer(Calendar.momentLocalizer(moment));
 

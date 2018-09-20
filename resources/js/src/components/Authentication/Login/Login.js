@@ -1,5 +1,5 @@
 import React from 'react';
-import { auth} from '../../Firebase';
+import { browserHistory } from 'react-router'
 import { Link } from 'react-router-dom';
 import validators from '../../../validators';
 import {Container,Row,Col} from 'reactstrap';
@@ -19,6 +19,8 @@ class Login extends React.Component{
 
         this.displayValidationErrors = this.displayValidationErrors.bind(this);
         this.updateValidators = this.updateValidators.bind(this);
+        this.goBack = this.goBack.bind(this);
+
     }
     onchange(event){
         this.setState({
@@ -45,7 +47,11 @@ class Login extends React.Component{
         });
     }
 
+    /**
+     * 
+     */
     isFormValid() {
+
         let status = true;
         Object.keys(this.validators).forEach((field) => {
         if(field=='email' || field=='password' ){
@@ -57,7 +63,11 @@ class Login extends React.Component{
         return status;
     }
 
+    /**
+     * 
+     */
     displayValidationErrors(fieldName) {
+        
         const validator = this.validators[fieldName];
         const result = '';
         if (validator && !validator.valid) {
@@ -82,36 +92,29 @@ class Login extends React.Component{
             password,
         } = this.state;
 
-        axios.post(
-            '/login',
-            {email, password}
-        ).then(
-            function (response) {
-                console.log(response);
-            }
-        ).catch(
-            function (error) {
-                console.log(error);
-            }
-        );
-        auth
-        .doSignInWithEmailAndPassword(email, password)
-        .then(
-            () => {
-                this.setState(() => ({
-                    email:email,
-                    password:password,
-                }));
-                this.props.history.push("/");
-            }
-        )
-        .catch(
-            error => {
-                alert('Invalid login id or password.');
-            }
-        );
+        const self = this;
+
+        var jqxhr = $.post( '/login', {
+            email,
+            password,
+            _token: $('meta[name="csrf-token"]').attr('content')
+        })
+        .done(function(res) {
+            console.log( "second success", res );
+            self.goBack();
+        })
+        .fail(function(err) {
+            console.log( "error", err );
+        })
+        .always(function(a,s,d) {
+            console.log( "finished",a,s,d );
+        });
 
         event.preventDefault();
+    }
+
+    goBack() {
+        this.props.history.goBack();
     }
 
     /**

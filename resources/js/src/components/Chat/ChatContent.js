@@ -21,12 +21,7 @@ class ChatContent extends React.Component {
      * Load chat messages when tab will be mounted to DOM
      */
     componentWillMount() {
-        console.info('ChatContent::componentWillMount');
         this.loadMessages();
-    }
-
-    componentWillUnmount() {
-        console.info('ChatContent::componentWillUnmount');
     }
 
     /**
@@ -39,7 +34,7 @@ class ChatContent extends React.Component {
             loaded: false,
         });
 
-        axios.get(`/res/chat_message?chatid=${this.props.chat.id}`)
+        axios.get(`/res/chat/${this.props.chat.id}/messages?__chatid=${this.props.chat.id}`)
         .then(
             (res) => {
                 this.setState({
@@ -71,15 +66,18 @@ class ChatContent extends React.Component {
                 chatMessages = [];
                 this.state.chatMessages.forEach(
                     (message, idx) => {
+                        
                         const messageTime = message.created_at.slice(11,16);
                         const messageDate = message.created_at.slice(0,10);
                         const showDate = lastDate !== messageDate;
+                        
                         if (lastTime !== messageTime || showDate) {
                             const extraClass = showDate ? 'date' : '';
                             chatMessages.push(<span key={`${messageDate}_${messageTime}`} className={`time ${extraClass} d-block mt-20px mb-20 text-center text-gray`}>{showDate ? messageDate : ''} {messageTime} </span>)
                             lastTime = messageTime;
                             lastDate = messageDate;
                         }
+                        
                         if (message.user_id === authUser.id) {
                             chatMessages.push(
                                 <div key={`${idx}`} className="chat-wrapper chat-me clearfix">

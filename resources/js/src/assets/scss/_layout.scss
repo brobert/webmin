@@ -756,6 +756,7 @@ select.form-control-sm:not([size]):not([multiple]) {
   padding: 30px;
   height: 100%;
   position: relative;
+  border-top: 1px solid $lightest-gray;
   @include box-shadow(0, 15px, 20px, rgba(0, 0, 0, 0.06));
 
   h2 {

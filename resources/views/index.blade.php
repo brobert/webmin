@@ -8,6 +8,7 @@
     <meta name="author" content="potenzaglobalsolutions.com" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <title>Webmin - React JS Admin Dashboard Template</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <base href="/" />
     <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:200,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900">

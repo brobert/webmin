@@ -11,9 +11,9 @@ module.exports = webpackMerge(commonConfig, {
    //  devtool: 'source-map',
     mode: 'production',
     output: {
-        path: path.join(process.cwd(), '/dist'),
-        publicPath: 'http://localhost:8000',
-        filename: 'index_bundle.js'
+        path: path.join(process.cwd(), '/../../public/'),
+        publicPath: 'http://localhost:8000/',
+        filename: 'js/[name].js'
     },
    
     optimization: {

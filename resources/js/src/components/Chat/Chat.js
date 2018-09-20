@@ -90,7 +90,7 @@ class Chat extends React.Component {
 
     storeChatMessage() {
 
-        axios.post(`/res/chat_message?chatid=${this.state.activeTab}`, {text: this.state.msgText})
+        axios.post(`/res/chat/${this.state.activeTab}/message`, {text: this.state.msgText})
         .then(
             (res) => {
                 this.setState({

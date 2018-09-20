@@ -19,13 +19,18 @@ Route::get('/home', function () {
 
 Route::middleware('auth')->prefix('res')->namespace('Api')->group(function () {
     Route::resources([
-        'chat' => 'ChatController',
-        'chat_message' => 'ChatMessageController'
+        'chat' => 'ChatController'
+        // 'chat_message' => 'ChatMessageController',
     ]);
+
+    Route::get('chat/{chatid}/messages', 'ChatMessageController@index');
+    Route::post('chat/{chatid}/message', 'ChatMessageController@store');
 });
 // Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/login', 'Auth\LoginController@login')->name('login');
+Route::post('/register', 'Auth\RegisterController@register')->name('register');
+Route::any('/logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::fallback(function () {
     return View::make('index');

@@ -106,7 +106,7 @@ class Header extends Component{
                             <a className="dropdown-item" href="#"><i className="text-dark ti-layers-alt"></i>Projects <span className="badge badge-info">6</span> </a>
                             <div className="dropdown-divider"></div>
                             <a className="dropdown-item" href="#"><i className="text-info ti-settings"></i>Settings</a>
-                            <Link className="dropdown-item" to="/login"><i className="text-danger ti-unlock"></i>Logout</Link>
+                            <a className="dropdown-item" href="/logout"><i className="text-danger ti-unlock"></i>Logout</a>
                             </div>
                         </li>
                     </ul>

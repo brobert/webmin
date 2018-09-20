@@ -1,9 +1,9 @@
 import React from 'react';
-import { auth,db} from '../../Firebase';
 import validators from '../../../validators';
 import { Link } from 'react-router-dom';
 import './Register.css';
 import {Row,Col,Container} from 'reactstrap';
+
 class Register extends React.Component{
     constructor(props){
         super(props);
@@ -76,33 +76,33 @@ class Register extends React.Component{
           email,
           password,
         } = this.state;
-        auth.doCreateUserWithEmailAndPassword(email, password)
-          .then(authUser => {
-            db.doCreateUser(authUser.user.uid, firstname,lastname, email)
-            .then(() => {
-              this.setState(() => ({
-                firstname:firstname,
-                lastname,lastname,
-                email:email,
-                password:password,
-              }));
-              this.props.history.push("/login");
-            })
-            .catch(error => {
-              alert('Something went wrong');
-            });
-          })
-          .catch(error => {
-            alert('Something went wrong');
-          });
+//        auth.doCreateUserWithEmailAndPassword(email, password)
+//          .then(authUser => {
+//            db.doCreateUser(authUser.user.uid, firstname,lastname, email)
+//            .then(() => {
+//              this.setState(() => ({
+//                firstname:firstname,
+//                lastname,lastname,
+//                email:email,
+//                password:password,
+//              }));
+//              this.props.history.push("/login");
+//            })
+//            .catch(error => {
+//              alert('Something went wrong');
+//            });
+//          })
+//          .catch(error => {
+//            alert('Something went wrong');
+//          });
           event.preventDefault();
     }
     render(){
         return(
-            <section className="height-100vh d-flex align-items-center page-section-ptb login" style={{backgroundImage: 'url(assets/images/register-bg.jpg)'}}>
+            <section className="height-100vh d-flex align-items-center page-section-ptb login" style={{backgroundImage: 'url(assets/images/login-bg.jpg)'}}>
               <Container>
                 <Row className="no-gutters">
-                  <Col lg={4} md={6} className="offset-lg-1 login-fancy-bg bg parallax" style={{backgroundImage: 'url(assets/images/register-inner-bg.jpg)'}}>
+                  <Col lg={4} md={6} className="offset-lg-2 login-fancy-bg bg parallax" style={{backgroundImage: 'url(assets/images/login-inner-bg.jpg)'}}>
                     <div className="login-fancy">
                       <h2 className="text-white mb-20">Hello world!</h2>
                       <p className="mb-20 text-white">Create tailor-cut websites with the exclusive multi-purpose responsive template along with powerful features.</p>

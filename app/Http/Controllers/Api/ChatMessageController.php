@@ -18,7 +18,7 @@ class ChatMessageController extends ApiController {
      */
     public function index(Request $request) {
 
-        $chatId = $request->query('chatid');
+        $chatId = $request->query('chatid') ?: $request->chatid;
 
         $result = ChatMessage::with([
             'user' => function ($query) {
@@ -42,7 +42,7 @@ class ChatMessageController extends ApiController {
      */
     public function store(Request $request) {
 
-        $chatId = $request->query('chatid');
+        $chatId = $request->query('chatid') ?: $request->chatid;
 
         $msg = new ChatMessage();
 

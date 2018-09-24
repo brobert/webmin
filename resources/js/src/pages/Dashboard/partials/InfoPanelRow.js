@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
-import InfoPanel from './InfoPanel';
+//import InfoPanel from './InfoPanel';
+
+import InfoPanel from 'widgets/InfoPanel';
+
+
 class InfoPanelRow extends Component {
     
     render() {

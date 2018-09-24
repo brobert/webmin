@@ -103,6 +103,7 @@ class Header extends Component{
                             <a className="dropdown-item" href="#"><i className="text-secondary ti-reload"></i>Activity</a>
                             <a className="dropdown-item" href="#"><i className="text-success ti-email"></i>Messages</a>
                             <a className="dropdown-item" href="#"><i className="text-warning ti-user"></i>Profile</a>
+                            <Link className="dropdown-item" to="/profile"><i className="text-warning ti-user"></i>Profile.</Link>
                             <a className="dropdown-item" href="#"><i className="text-dark ti-layers-alt"></i>Projects <span className="badge badge-info">6</span> </a>
                             <div className="dropdown-divider"></div>
                             <a className="dropdown-item" href="#"><i className="text-info ti-settings"></i>Settings</a>

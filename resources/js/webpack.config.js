@@ -1,5 +1,5 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var CopyWebpackPlugin = require('copy-webpack-plugin');												   
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 var path = require('path');
 const webpack = require('webpack');
 const extractTextPlugin = require('extract-text-webpack-plugin');
@@ -12,6 +12,9 @@ const PATHS = {
 var baseHref = process.env.WP_BASE_HREF ? process.env.WP_BASE_HREF : '/';
 module.exports = {
     entry: path.join(__dirname, "/src/index.js"),
+    resolve: {
+        modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+    },
     module: {
         rules:[ 
             {

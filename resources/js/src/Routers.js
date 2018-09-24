@@ -6,6 +6,7 @@ import Basepages from './components/Layout/Basepages';
 
 // import pages
 import Dashboard from './pages/Dashboard/Dashboard';
+import Profile from 'pages/Profile/Profile.js';
 
 
 // import components
@@ -97,6 +98,7 @@ const Routers = () => {
                     <Route path="/widget" component={Widgets} />
                     <Route path="/chat" component={Chat} />
                     <Route path="/mailbox" component={Mail} />
+                    <Route path="/profile" component={Profile} />
                 </Switch> 
             </Base>
         );

@@ -51,8 +51,9 @@ const listofPages = [
     
 ];
 
-const Routers = () => {
+const Routers = (globalProps) => {
 
+	console.info('>>>>>>>>>>>>>> PROPS: ', globalProps);
     if(listofPages.indexOf(location.pathname) > -1) {
         return(
             <Basepages>
@@ -64,8 +65,8 @@ const Routers = () => {
         return(
             <Base>
                 <Switch>
-                    <Route exact path="/" component={Dashboard}/> 
-                    <Route path="/accordion" component={Accordions}/>
+                    <Route exact path="/" render={(props) => <Dashboard {...props} {...globalProps} />}/>
+                    <Route path="/accordion" render={(props) => <Accordions {...props} authUser={this.props.authUser} />}/>
                     <Route path="/alerts" component={Alerts} />
                     <Route path="/buttons" component={Buttons} />
                     <Route path="/colors" component={Colors} />

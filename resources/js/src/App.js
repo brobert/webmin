@@ -12,6 +12,10 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.prepareAxios();
+        
+        this.user = {
+    		name: 'Auth User',
+        }
     }
 
     prepareAxios() {
@@ -24,7 +28,7 @@ class App extends React.Component {
     render() {
         return (
             <Router>
-                <Routers />
+                <Routers authUser={this.user}/>
             </Router>
         );
     }

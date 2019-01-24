@@ -26,12 +26,21 @@ class InfoPanel extends React.Component {
                         </div>
                         <div className="float-right text-right">
                             <p className="card-text text-dark">{this.props.label}</p>
-                            <h4>{this.props.value}</h4>
+                            {
+                                this.props.value === null
+                                ? <i className="fa fa-spin fa-spinner" styles={{ width: 'auto', height: 'auto', lineHeight: '1px', marginRight: '10px' }}></i>
+                                : <h4>{this.props.value}</h4>
+                            }
                         </div>
                     </div>
                     <p className="text-muted pt-3 mb-0 mt-2 border-top">
-                        <i className={`fa fa-${this.props.exclamationIcon} mr-1`} aria-hidden="true"></i>{`${this.props.exclamationText}`}
-                </p>
+                        <i className={`fa fa-${this.props.exclamationIcon} mr-1`} aria-hidden="true"></i>
+                        {
+                            this.props.exclamationText === null
+                            ? <i className="fa fa-spin fa-spinner" styles={{ width: 'auto', height: 'auto', lineHeight: '1px', marginRight: '10px' }}></i>
+                            : `${this.props.exclamationText}`
+                        }
+                    </p>
                 </CardBody>
             </Card>
         );

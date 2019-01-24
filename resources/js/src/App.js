@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, HashRouter} from 'react-router-dom';
+import {BrowserRouter as Router, HashRouter, Redirect} from 'react-router-dom';
 
 import Routers from './Routers.js';
 
@@ -12,25 +12,58 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.prepareAxios();
-        
-        this.user = {
-    		name: 'Auth User',
-        }
+
+        this.state = {
+            ready: false,
+            authUser: {},
+        };
+
+    }
+
+    componentDidMount() {
+
+        this.loadAuthUser()
     }
 
     prepareAxios() {
         window.axios = axios;
     }
 
+    loadAuthUser() {
+
+        axios.get(`/res/auth/user`)
+        .then(
+            (res) => {
+                console.info('>>>>>>>>>>>>>>>>>> ', res);
+                this.setState({
+                    ready: true,
+                    authUser: res.data,
+                });
+                window.authUser = res.data;
+            }
+        ).catch(
+            (error) => {
+                this.setState({
+                    ready: true,
+//                    authUser: res,
+                });
+            }
+        );
+    }
+
     /**
      * Render
      */
     render() {
-        return (
-            <Router>
-                <Routers authUser={this.user}/>
-            </Router>
-        );
+        
+        if (this.state.ready) {
+            return (
+                <Router>
+                    <Routers authUser={this.state.authUser}/>
+                </Router>
+            );
+        }
+        return null;
     }
 }
 

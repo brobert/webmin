@@ -19,6 +19,8 @@ class Header extends Component{
     };
  
     render(){
+        
+        console.info('>>>HEADER PROPS', this.props);
         return(
               <nav className="admin-header navbar navbar-default col-lg-12 col-12 p-0 fixed-top d-flex flex-row"> 
 
@@ -88,25 +90,25 @@ class Header extends Component{
                         </li>
                         <li className="nav-item dropdown mr-30">
                             <a className="nav-link nav-pill user-avatar" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            <img src="assets/images/profile-avatar.jpg" alt="avatar" />
+                                <img src="assets/images/profile-avatar.jpg" alt="avatar" />
+                                <i className="mt-0 mb-0 ml-3">{this.props.authUser.name || 'Unnamed'}</i>
                             </a>
                             <div className="dropdown-menu dropdown-menu-right">
                             <div className="dropdown-header">
                                 <div className="media">
                                 <div className="media-body">
-                                    <h5 className="mt-0 mb-0">Michael Bean</h5>
-                                    <span>michael-bean@mail.com</span>
+                                    <h5 className="mt-0 mb-0">{this.props.authUser.name || 'User'}</h5>
+                                    <span>{this.props.authUser.email}</span>
                                 </div>
                                 </div>
                             </div>
                             <div className="dropdown-divider"></div>
-                            <a className="dropdown-item" href="#"><i className="text-secondary ti-reload"></i>Activity</a>
-                            <a className="dropdown-item" href="#"><i className="text-success ti-email"></i>Messages</a>
-                            <a className="dropdown-item" href="#"><i className="text-warning ti-user"></i>Profile</a>
-                            <Link className="dropdown-item" to="/profile"><i className="text-warning ti-user"></i>Profile.</Link>
-                            <a className="dropdown-item" href="#"><i className="text-dark ti-layers-alt"></i>Projects <span className="badge badge-info">6</span> </a>
+                            <Link className="dropdown-item" to="/"><i className="text-secondary ti-reload"></i>Activity</Link>
+                            <Link className="dropdown-item" to="/mailbox"><i className="text-success ti-email"></i>Messages</Link>
+                            <Link className="dropdown-item" to="/profile"><i className="text-warning ti-user"></i>Profile</Link>
+                            <Link className="dropdown-item" to="/"><i className="text-dark ti-layers-alt"></i>Projects <span className="badge badge-info">6</span> </Link>
                             <div className="dropdown-divider"></div>
-                            <a className="dropdown-item" href="#"><i className="text-info ti-settings"></i>Settings</a>
+                            <Link className="dropdown-item" to="/"><i className="text-info ti-settings"></i>Settings</Link>
                             <a className="dropdown-item" href="/logout"><i className="text-danger ti-unlock"></i>Logout</a>
                             </div>
                         </li>

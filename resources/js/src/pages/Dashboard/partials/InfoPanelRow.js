@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
 //import InfoPanel from './InfoPanel';
 
+import LeavePanel from 'widgets/LeavePanel';
 import InfoPanel from 'widgets/InfoPanel';
 
 
@@ -11,14 +12,7 @@ class InfoPanelRow extends Component {
         return (
             <Row>
                 <Col xl={3} lg={6} md={6} className="mb-30" >
-                    <InfoPanel 
-                        label="Urlop"
-                        value="17"
-                        theme="info"
-                        icon="calendar"
-                        exclamationText=" pozostało 9 dni"
-                        exclamationIcon="info-circle"
-                    />
+                    <LeavePanel />
                 </Col>
                 <Col xl={3} lg={6} md={6} className="mb-30" >
                     <InfoPanel 

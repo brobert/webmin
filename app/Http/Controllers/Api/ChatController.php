@@ -22,14 +22,13 @@ class ChatController extends ApiController {
             }
         ])->whereHas('users', function ($query) use ($request) {
             $query->where('id', $request->user()->id);
-        })->paginate();
+        })->paginate()->toArray();
 
-        return [
-            'meta' => [
-                'user' => $request->user()
-            ],
-            'data' => $result
+        $result['meta'] = [
+            'user' => $request->user(),
         ];
+        
+        return $result;
     }
 
     /**

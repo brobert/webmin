@@ -5,55 +5,55 @@ import Base from './components/Layout/Base';
 import Basepages from './components/Layout/Basepages';
 
 // import pages
+import Chartjs from './pages/Chart/Chartjs';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Profile from 'pages/Profile/Profile.js';
 
 
 // import components
-import Alerts from './components/Elements/Alert/Alerts';
-import Buttons from './components/Elements/Button/Buttons';
-import Colors from './components/Elements/Color/Colors';
-import Dropdowns from './components/Elements/Dropdown/Dropdowns';
-import Typographys from './components/Elements/Typographys/Typographys';
-import Navs from './components/Elements/Navs/Navs';
-import Models from './components/Elements/Model/Models';
-import Fontawesome from './components/Fontawesome/Fontawesome';
-import Switchs from './components/Elements/Switchs/Switchs';
-import Lists from './components/Elements/Lists/Lists';
-import Ratings from './components/Elements/Ratings/Ratings';
-import Nicescroll from './components/Elements/Nicescroll/nicescroll';
-import Login from './components/Authentication/Login/Login';
-import Tabss from './components/Elements/Tabs/Tabss';
-import Progressbar from './components/Elements/Progress/Progressbar';
-import PopoverTooltips from './components/Elements/Popover_Tooltips/Popover_Tooltips';
-import DatePickers from './components/Elements/Datepicker/Datepickers';
-import Mapss from './components/Maps/Maps';
 import Accordions from './components/Elements/Accordion/Accordions';
-import Chartjs from './components/Chart/Chartjs';
+import Alerts from './components/Elements/Alert/Alerts';
+import Blankpage from './components/Custompage/Blankpage/Blankpage';
+import Buttons from './components/Elements/Button/Buttons';
+import Chat from './components/Chat/Chat';
+import Colors from './components/Elements/Color/Colors';
+import Contacts from './components/Custompage/Contacts/Contacts';
 import Datatables from './components/Tables/Datatables/Datatables';
-import Tables from './components/Tables/Tables/Tables';
+import DatePickers from './components/Elements/Datepicker/Datepickers';
+import Dropdowns from './components/Elements/Dropdown/Dropdowns';
+import Errors from './components/Custompage/Error/Errors';
+import Eventcalendar from './components/Calendar/Eventcalendar';
+import Faq from './components/Custompage/Faq/Faq';
+import Fontawesome from './components/Fontawesome/Fontawesome';
+import Formgroups from './components/Forms/Inputgroup/Inputgroups';
 import Forminputs from './components/Forms/Forminput/Forminputs';
 import Formvalidations from './components/Forms/Formvalidation/Formvalidations';
-import Errors from './components/Custompage/Error/Errors';
-import Formgroups from './components/Forms/Inputgroup/Inputgroups';
-import Eventcalendar from './components/Calendar/Eventcalendar';
-import Register from './components/Authentication/Register/Register';
-import Blankpage from './components/Custompage/Blankpage/Blankpage';
-import Faq from './components/Custompage/Faq/Faq';
-import Contacts from './components/Custompage/Contacts/Contacts';
 import Invoice from './components/Custompage/Invoice/Invoice';
-import Widgets from './components/Widgets/Widgets';
-import Chat from './components/Chat/Chat';
+import Lists from './components/Elements/Lists/Lists';
+import Login from './components/Authentication/Login/Login';
 import Mail from './components/MailBox/Mailbox';
+import Mapss from './components/Maps/Maps';
+import Models from './components/Elements/Model/Models';
+import Navs from './components/Elements/Navs/Navs';
+import Nicescroll from './components/Elements/Nicescroll/nicescroll';
+import PopoverTooltips from './components/Elements/Popover_Tooltips/Popover_Tooltips';
+import Progressbar from './components/Elements/Progress/Progressbar';
+import Ratings from './components/Elements/Ratings/Ratings';
+import Register from './components/Authentication/Register/Register';
+import Switchs from './components/Elements/Switchs/Switchs';
+import Tables from './components/Tables/Tables/Tables';
+import Tabss from './components/Elements/Tabs/Tabss';
+import Typographys from './components/Elements/Typographys/Typographys';
+import Widgets from './components/Widgets/Widgets';
+
 const listofPages = [
     '/login',
     '/register'
-    
+
 ];
 
 const Routers = (globalProps) => {
 
-	console.info('>>>>>>>>>>>>>> PROPS: ', globalProps);
     if(listofPages.indexOf(location.pathname) > -1) {
         return(
             <Basepages>
@@ -63,7 +63,7 @@ const Routers = (globalProps) => {
         )
     } else {
         return(
-            <Base>
+            <Base {...globalProps}>
                 <Switch>
                     <Route exact path="/" render={(props) => <Dashboard {...props} {...globalProps} />}/>
                     <Route path="/accordion" render={(props) => <Accordions {...props} authUser={this.props.authUser} />}/>

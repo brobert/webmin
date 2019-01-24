@@ -5,13 +5,13 @@ import InfoPanel from './InfoPanel';
 
 var rFactor = function (multi) {
     
-    multi = multi === undefined ? 300 : multi;
+    multi = multi === undefined ? 500 : multi;
     return Math.round(Math.random() * multi);
 };
 
 const barData = function() {
     return {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        labels: ['January3', 'February3', 'March3', 'April3', 'May3', 'June3', 'July3', 'August3', 'September', 'October', 'November', 'December'],
         datasets: [
             {
                 label: 'Apple',
@@ -37,7 +37,7 @@ const barData = function() {
 
 const lineData = function() {
     return {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        labels: ['January2', 'February2', 'March2', 'April2', 'May2', 'June2', 'July2'],
         datasets: [{
             label: 'Income',
             backgroundColor: 'rgb(56, 182, 202)',
@@ -46,8 +46,8 @@ const lineData = function() {
             data: [rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor()]
         }, {
             label: 'Outcome',
-            backgroundColor: 'rgb(249, 249, 249)',
-            borderColor: 'rgb(249, 249, 249)',
+            backgroundColor: 'rgb(149, 149, 249)',
+            borderColor: 'rgb(149, 149, 249)',
             pointBorderColor: '#fff',
             data: [rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor()]
         }]
@@ -56,7 +56,7 @@ const lineData = function() {
 
 
 const LinechartState = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: ['January1', 'February1', 'March1', 'April1', 'May1', 'June1', 'July1'],
     datasets: [
         {
 
@@ -76,13 +76,13 @@ const LinechartState = {
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: [65, 59, 80, 81, 56, 55, 40]
+            data: [rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor(), rFactor()]
         }
     ]
 };
 
 const BarchartState = {
-    labels: ['January!!', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
         {
             label: 'January',
@@ -107,8 +107,8 @@ class ChartSection extends Component {
             dropdownbarOpen: false,
             dropdownlineOpen: false,
             widths:150,
-            barData: barData(),
-            lineData: lineData(),
+            barData: {}, //barData(),
+            lineData: {}, //lineData(),
         };
 
         this.onBarRefresh = this.onBarRefresh.bind(this);
@@ -118,9 +118,22 @@ class ChartSection extends Component {
     componentWillMount() {
         this.setState(LinechartState);
         this.setState(BarchartState);
+        const timeOut = 10 * rFactor(500)
+        console.info('-----------------', timeOut / 1000, this.state);
         
+        setTimeout(() => {
+            this.setState({
+                barData: barData(),
+            })
+        }, 10 * rFactor(500));
+        
+        setTimeout(() => {
+            this.setState({
+                lineData: lineData(),
+            })
+        }, 10 * rFactor(500));
     };
-    
+
     dropdownbarOpen() {
         this.setState(prevState => ({
             dropdownbarOpen: !prevState.dropdownbarOpen
@@ -165,25 +178,85 @@ class ChartSection extends Component {
                         </div>
                         <CardBody>
                             <div className="d-block">
-                                    <CardTitle>Market summary</CardTitle>
+                                <CardTitle>Market summary</CardTitle>
+                            </div>
+                            <div className="row h-100 justify-content-center align-items-center">
+                                <div className="col-4 text-center">
+                                    <h6>Apple</h6>
+                                    <b className="text-info">+ 82.24 % </b>
                                 </div>
-                                <div className="row h-100 justify-content-center align-items-center">
-                                    <div className="col-4 text-center">
-                                        <h6>Apple</h6>
-                                        <b className="text-info">+ 82.24 % </b>
-                                    </div>
-                                    
-                                    <div className="col-4 text-center">
-                                        <h6>Google</h6>
-                                        <b className="text-warning">+ 24.86 % </b>
-                                    </div>
-                                    
-                                    <div className="col-4 text-center">
-                                        <h6>Twitter</h6>
-                                        <b className="text-warning">+ 78.86 % </b>
-                                    </div>
+
+                                <div className="col-4 text-center">
+                                    <h6>Google</h6>
+                                    <b className="text-warning">+ 24.86 % </b>
                                 </div>
-                        
+
+                                <div className="col-4 text-center">
+                                    <h6>Twitter</h6>
+                                    <b className="text-warning">+ 78.86 % </b>
+                                </div>
+                            </div>
+
+                            <div className="chart-wrapper" style={{height: 350}}>
+                                <Bar
+                                    data={this.state.barData}
+                                    width={this.state.widths}
+                                    options={
+                                        {
+                                            maintainAspectRatio: false,
+                                            legend: {
+                                                display: true,
+                                                labels: {
+                                                    fontFamily: "Poppins"
+                                                }
+                                            },
+                                            scales: {
+                                                yAxes: [{gridLines: {display: false}, ticks:{fontFamily: "Poppins"}}],
+                                                xAxes: [{gridLines: {display: false}, ticks:{fontFamily: "Poppins"}}]
+                                            }
+                                        }
+                                    }
+                                    className="scrollbar-x text-center" 
+                                />
+                            </div>
+                        </CardBody>
+                    </Card>
+                </Col>
+                <Col xl={8} className="mb-30">
+                <Card className="card-statistics h-100">
+                    {/* action group */}
+                    <div className="btn-group info-drop">
+                        <Dropdown isOpen={this.state.dropdownbarOpen} toggle={this.dropdownbarOpen}>
+                            <DropdownToggle className="dropdown-toggle-split text-muted" id="dropdown-no-caret">
+                                <i className="ti-more" />
+                            </DropdownToggle>
+                            <DropdownMenu>
+                                <DropdownItem onClick={this.onBarRefresh}><i className="text-primary ti-reload" />Refresh</DropdownItem>
+                                <DropdownItem><i className="text-secondary ti-eye" />View all</DropdownItem>
+                            </DropdownMenu>
+                        </Dropdown>
+                    </div>
+                    <CardBody>
+                        <div className="d-block">
+                            <CardTitle>Market summary</CardTitle>
+                        </div>
+                        <div className="row h-100 justify-content-center align-items-center">
+                            <div className="col-4 text-center">
+                                <h6>Apple</h6>
+                                <b className="text-info">+ 82.24 % </b>
+                            </div>
+
+                            <div className="col-4 text-center">
+                                <h6>Google</h6>
+                                <b className="text-warning">+ 24.86 % </b>
+                            </div>
+
+                            <div className="col-4 text-center">
+                                <h6>Twitter</h6>
+                                <b className="text-warning">+ 78.86 % </b>
+                            </div>
+                        </div>
+
                         <div className="chart-wrapper" style={{height: 350}}>
                             <Bar
                                 data={this.state.barData}
@@ -198,18 +271,18 @@ class ChartSection extends Component {
                                             }
                                         },
                                         scales: {
-                                            yAxes: [{gridLines: {display: false}, ticks:{fontFamily: "Poppins"}}],
-                                            xAxes: [{gridLines: {display: false},ticks:{fontFamily: "Poppins"}}]
+                                            yAxes: [{gridLines: {display: true}, ticks:{fontFamily: "Poppins"}}],
+                                            xAxes: [{gridLines: {display: false}, ticks:{fontFamily: "Poppins"}}]
                                         }
                                     }
                                 }
                                 className="scrollbar-x text-center" 
                             />
                         </div>
-                        </CardBody>
-                    </Card>
-                </Col>
-                <Col xl={8} className="mb-30">
+                    </CardBody>
+                </Card>
+            </Col>
+                <Col xl={12} className="mb-30">
                     <Card className="h-100">
 
                         <div className="btn-group info-drop">
@@ -250,7 +323,7 @@ class ChartSection extends Component {
                                             legend: {display: true, labels: {fontFamily: "Poppins"}},
                                             scales: {
                                                 yAxes: [{gridLines: {display: false}, ticks:{fontFamily: "Poppins"}}],
-                                                xAxes: [{gridLines: {display: false},ticks:{fontFamily: "Poppins"}}]
+                                                xAxes: [{gridLines: {display: false}, ticks:{fontFamily: "Poppins"}}]
                                             }
                                         }
                                     } 

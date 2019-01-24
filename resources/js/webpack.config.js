@@ -14,11 +14,13 @@ module.exports = {
     entry: path.join(__dirname, "/src/index.js"),
     resolve: {
         modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+        extensions: ['.js', '.jsx'],
+
     },
     module: {
         rules:[ 
             {
-                test: /\.js$/,
+                test: /\.jsx?$/,
                 exclude: /(node_modules|bower_components)/,
                 loader: 'babel-loader',
                 query: {

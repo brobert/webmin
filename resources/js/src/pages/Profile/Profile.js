@@ -1,7 +1,11 @@
 import React from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, CardText, Row, Col } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import classnames from 'classnames';
-import './Profile.css';
+import BasicTab from './BasicTab';
+import './Profile.scss';
+
+
 class Tabss extends React.Component {
     constructor(props) {
         super(props);
@@ -14,8 +18,22 @@ class Tabss extends React.Component {
             tabvertical: '1',
             tabhorizontal: '1',
             tabround: '1',
-            tabbordericon: '1'
+            tabbordericon: '1',
+            ready: false,
+            authUser: window.authUser,
         };
+        
+        console.info('Tabss::constructor', this.state);
+    }
+    
+    componentDidMount() {
+        console.info('Tabss::componentDidMount', this.state);
+        if (this.state.authUser) {
+            setTimeout(() => {
+                this.setState({ready: true});
+                console.info('Tabss::setState.ready => true');
+            }, 3 * 1000)
+        }
     }
 
     tabvertical(tab) {
@@ -49,16 +67,17 @@ class Tabss extends React.Component {
 
 
     render() {
+        console.info('Tabss::render', this.state);
         return (
             <div>
                 <div className="page-title">
                     <Row>
                         <Col sm={6}>
-                            <h4 className="mb-0"> Tabs</h4>
+                            <h4 className="mb-0"> Profile</h4>
                         </Col>
                         <Col sm={6}>
                             <Breadcrumb className="pt-0 pr-0 float-left float-sm-right">
-                                <BreadcrumbItem><a href="#">Home</a></BreadcrumbItem>
+                                <BreadcrumbItem><Link to="/">Home </Link></BreadcrumbItem>
                                 <BreadcrumbItem active>Tabs </BreadcrumbItem>
                             </Breadcrumb>
                         </Col>
@@ -78,8 +97,7 @@ class Tabss extends React.Component {
                                     </Nav>
                                     <TabContent activeTab={this.state.tabvertical} >
                                         <TabPane tabId="1">
-                                            <p>The best way is to develop and follow a plan. Start with your goals in mind and then work backwards to develop the plan. What steps are required to get you to the goals? Make the plan as detailed as possible. Try to visualize and then plan for, every possible setback. Commit the plan to paper and then keep it with you at all times. Review it regularly and ensure that every step takes you closer to your Vision and Goals. If the plan doesn’t support the vision then change it!</p>
-
+                                            <BasicTab user={this.state.ready ? this.state.authUser : this.state.authUser} />
                                         </TabPane>
                                         <TabPane tabId="2">
                                             <p>We all carry a lot of baggage, thanks to our upbringing. The majority of people carry with them, an entire series of self-limiting beliefs that will absolutely stop, and hold them back from, success. Things like “I’m not good enough”, “I’m not smart enough”, “I’m not lucky enough”, and the worst, “I’m not worthy” are but a few of the self-limiting beliefs I have encountered. We carry them with us like rocks in a knapsack, and then use them to sabotage our success. So, how twisted is that? </p>

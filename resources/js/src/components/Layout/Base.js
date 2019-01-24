@@ -22,7 +22,7 @@ class Base extends Component{
        
         return(
             <div className={this.state.toggleactive ? "wrapper  slide-menu" : "wrapper"}>
-                <Header updateParent={this.updateValue} />
+                <Header updateParent={this.updateValue} {...this.props}/>
                 <div className="container-fluid">
                     <div className="row">
                         <Sitebar />

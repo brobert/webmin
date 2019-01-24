@@ -10,6 +10,8 @@ import ChartSection from './partials/ChartSection';
 import DoughnutCard from './partials/DoughnutCard';
 import BestSellersCard from './partials/BestSellersCard';
 import CalendarCard from './partials/CalendarCard';
+
+import DateRange from 'widgets/date_range/date_range.jsx';
 import classnames from 'classnames';
 import PageTitle from './../../components/Layout/PageTitle';
 
@@ -83,10 +85,14 @@ class Dashboard extends React.Component {
                 <PageTitle pageTitle="Dashboard" crumbs={[]} />
                 {/* <!-- widgets --> */}
 
+                <Row>
+                    <Col xl={4} className="mb-30">
+                        <DateRange />
+                    </Col>
+                </Row>
                 <InfoPanelRow />
 
                 <ChartSection />
-
                 <Row>
                     <DoughnutCard />
                     <BestSellersCard />

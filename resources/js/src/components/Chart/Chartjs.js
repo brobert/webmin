@@ -209,7 +209,7 @@ class Chartjs extends React.Component {
                     <Col md={6} className="mb-30">
                         <Card className="h-100">
                             <CardBody>
-                                <CardTitle>Polar Chart </CardTitle>
+                                <CardTitle>Polar Chart[1] </CardTitle>
                                 <div className="chart-wrapper" style={{ width: '100%', margin: '0 auto', height: 350 }}>
                                     <Polar data={polarData} options={{maintainAspectRatio: false, legend: {display: true, labels: {fontFamily: "Poppins"}}}} />
                                 </div>

@@ -32,7 +32,9 @@ class Chat extends React.Component {
         axios.get(`/res/chat`)
         .then(
             (res) => {
-                const chats = res.data.data.data;
+                
+                console.info('>>>>>>>>>>>>>>>>>>>>>>>>', res.data.data);
+                const chats = res.data.data;
                 const activeTab = chats.length ? `${chats[0].id}` : "";
                 const name = chats.length ? chats[0].name : "";
                 const authUser = res.data.meta.user || {};
@@ -47,7 +49,7 @@ class Chat extends React.Component {
             }
         ).catch(
             (error) => {
-                console.info('UUUUUUUUUUUUUUUU', error.response);
+                console.info('UUUUUUUUUUUUUUUU', error);
                 this.setState({
                     unauthorized: true,
                 });

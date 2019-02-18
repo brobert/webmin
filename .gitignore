@@ -24,3 +24,4 @@ resources/views/vendor/
 /public/assets
 /public/css/main.css
 /public/js/main.js
+/public/*.hot-update.js*

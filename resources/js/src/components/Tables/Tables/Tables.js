@@ -35,7 +35,7 @@ class Tables extends React.Component {
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>John</td>
+                                            <td>Jonathan</td>
                                             <td>Doe</td>
                                             <td>john@example.com</td>
                                         </tr>

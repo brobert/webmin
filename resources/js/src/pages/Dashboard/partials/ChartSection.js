@@ -9,9 +9,9 @@ var rFactor = function (multi) {
     return Math.round(Math.random() * multi);
 };
 
-const barData = function() {
+const barData = function(id = '__') {
     return {
-        labels: ['January3', 'February3', 'March3', 'April3', 'May3', 'June3', 'July3', 'August3', 'September', 'October', 'November', 'December'],
+        labels: [`January ${id}`, 'February3', 'March3', 'April3', 'May3', 'June3', 'July3', 'August3', 'September', 'October', 'November', 'December'],
         datasets: [
             {
                 label: 'Apple',
@@ -100,19 +100,22 @@ class ChartSection extends Component {
     
     constructor(props) {
         super(props);
-        this.dropdownbarOpen = this.dropdownbarOpen.bind(this);
+        this.dropdownbar1Open = this.dropdownbar1Open.bind(this);
+        this.dropdownbar2Open = this.dropdownbar2Open.bind(this);
         this.dropdownlineOpen = this.dropdownlineOpen.bind(this);
 
         this.state = {
             dropdownbarOpen: false,
             dropdownlineOpen: false,
             widths:150,
-            barData: {}, //barData(),
+            barData_1: {}, //barData(),
+            barData_2: {}, //barData(),
             lineData: {}, //lineData(),
         };
 
         this.onBarRefresh = this.onBarRefresh.bind(this);
         this.onLineChartRefresh = this.onLineChartRefresh.bind(this);
+        this.onItemClick = this.onItemClick.bind(this);
     }
     
     componentWillMount() {
@@ -123,7 +126,8 @@ class ChartSection extends Component {
         
         setTimeout(() => {
             this.setState({
-                barData: barData(),
+                barData_1: barData('org'),
+                barData_2: barData('org'),
             })
         }, 10 * rFactor(500));
         
@@ -134,12 +138,18 @@ class ChartSection extends Component {
         }, 10 * rFactor(500));
     };
 
-    dropdownbarOpen() {
+    dropdownbar1Open() {
         this.setState(prevState => ({
-            dropdownbarOpen: !prevState.dropdownbarOpen
-
+            dropdownbar1Open: !prevState.dropdownbar1Open
         }));
-    }
+    };
+
+    dropdownbar2Open() {
+        this.setState(prevState => ({
+            dropdownbar2Open: !prevState.dropdownbar2Open
+        }));
+    };
+    
     dropdownlineOpen() {
         this.setState(prevState => ({
 
@@ -147,9 +157,10 @@ class ChartSection extends Component {
         }));
     }
     
-    onBarRefresh() {
+    onBarRefresh(key=1) {
+
         this.setState({
-            barData: barData(),
+            [`barData_${key}`]: barData(`(ref:${key})`),
         })
     };
     
@@ -159,6 +170,10 @@ class ChartSection extends Component {
         })
     };
     
+    onItemClick() {
+        console.info('#############################################');
+    }
+    
     render() {
         return (
             <Row>
@@ -166,19 +181,21 @@ class ChartSection extends Component {
                     <Card className="card-statistics h-100">
                         {/* action group */}
                         <div className="btn-group info-drop">
-                            <Dropdown isOpen={this.state.dropdownbarOpen} toggle={this.dropdownbarOpen}>
+                            <Dropdown isOpen={this.state.dropdownbar1Open} toggle={this.dropdownbar1Open}>
                                 <DropdownToggle className="dropdown-toggle-split text-muted" id="dropdown-no-caret">
                                     <i className="ti-more" />
                                 </DropdownToggle>
                                 <DropdownMenu>
-                                    <DropdownItem onClick={this.onBarRefresh}><i className="text-primary ti-reload" />Refresh</DropdownItem>
+                                    <DropdownItem onClick={() => { this.onBarRefresh(1); }}>
+                                        <i className="text-primary ti-reload" />Refresh
+                                	</DropdownItem>
                                     <DropdownItem><i className="text-secondary ti-eye" />View all</DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
                         </div>
                         <CardBody>
                             <div className="d-block">
-                                <CardTitle>Market summary</CardTitle>
+                                <CardTitle>Market summary 1</CardTitle>
                             </div>
                             <div className="row h-100 justify-content-center align-items-center">
                                 <div className="col-4 text-center">
@@ -199,7 +216,7 @@ class ChartSection extends Component {
 
                             <div className="chart-wrapper" style={{height: 350}}>
                                 <Bar
-                                    data={this.state.barData}
+                                    data={this.state.barData_1}
                                     width={this.state.widths}
                                     options={
                                         {
@@ -226,19 +243,19 @@ class ChartSection extends Component {
                 <Card className="card-statistics h-100">
                     {/* action group */}
                     <div className="btn-group info-drop">
-                        <Dropdown isOpen={this.state.dropdownbarOpen} toggle={this.dropdownbarOpen}>
+                        <Dropdown isOpen={this.state.dropdownbar2Open} toggle={this.dropdownbar2Open}>
                             <DropdownToggle className="dropdown-toggle-split text-muted" id="dropdown-no-caret">
                                 <i className="ti-more" />
                             </DropdownToggle>
                             <DropdownMenu>
-                                <DropdownItem onClick={this.onBarRefresh}><i className="text-primary ti-reload" />Refresh</DropdownItem>
+                                <DropdownItem onClick={() => { this.onBarRefresh(2); }}><i className="text-primary ti-reload" />Refresh</DropdownItem>
                                 <DropdownItem><i className="text-secondary ti-eye" />View all</DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
                     </div>
                     <CardBody>
                         <div className="d-block">
-                            <CardTitle>Market summary</CardTitle>
+                            <CardTitle>Market summary 2</CardTitle>
                         </div>
                         <div className="row h-100 justify-content-center align-items-center">
                             <div className="col-4 text-center">
@@ -259,7 +276,7 @@ class ChartSection extends Component {
 
                         <div className="chart-wrapper" style={{height: 350}}>
                             <Bar
-                                data={this.state.barData}
+                                data={this.state.barData_2}
                                 width={this.state.widths}
                                 options={
                                     {

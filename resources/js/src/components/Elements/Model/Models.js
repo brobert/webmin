@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Models.css';
-import { Button, Row, Col, Modal, ModalHeader, ModalBody, Card, CardBody, CardTitle, ModalFooter,Breadcrumb,BreadcrumbItem } from 'reactstrap';
+import { Button, Row, Col, Modal, ModalHeader, ModalBody, ModalFooter, Card, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 class Models extends React.Component {
     constructor(props) {
         super(props);

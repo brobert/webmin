@@ -62,4 +62,9 @@ class ApiController extends Controller {
 
         //
     }
+
+    public function getAuthUser(Request $request) {
+
+        return $request->user();
+    }
 }

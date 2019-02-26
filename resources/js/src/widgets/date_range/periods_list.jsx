@@ -17,8 +17,8 @@ class PeriodsList extends Component {
         this.periodChange = this.periodChange.bind(this);
 
         extendObservable(this, {
-            userPeriods: false,
-            sysPeriods: SysPeriods,
+            userPeriods: [],
+            sysPeriods: [],
             tabActive: 'sys'
         });
 
@@ -36,8 +36,9 @@ class PeriodsList extends Component {
         )
         .then(
             (res) => {
-                console.info('>>>>>>>>>>> /res/config/user/date_periods', res.data);
-                this.userPeriods = res.data;
+                console.info('>>>>>>>>>>> /res/config/user/date_periods', res.data, this.userPeriods);
+                this.userPeriods = res.data.user;
+                this.sysPeriods = res.data.system;
             }
         );
     }
@@ -47,37 +48,42 @@ class PeriodsList extends Component {
             this.tabActive = tab;
         }
     }
-    
+
     periodChange(period, scope) {
+        this.props.onChange(`${scope}:${period}`)
         console.info(`>>> periodChange: ${scope}:${period}`);
     }
 
     render() {
 
-        const sysPeriods = [];
-        const userPeriods = [];
+        const sysContent = [];
+        const userContent = [];
 
         const periodChange = this.periodChange;
 
-        _.keys(SysPeriods).forEach(function(period) {
-            sysPeriods.push (
-                <li key={period} className="list-group-item my-0 py-0">
-                    <NavLink onClick={() => { periodChange(period, 'system'); }}>
-                        {SysPeriods[period].label}
-                    </NavLink>
-                </li>
-            );
-        });
+        console.info('sysPeriods/userPeriods: ', toJS(this.sysPeriods), toJS(this.userPeriods));
 
-        if (toJS(this.userPeriods) && _.keys(toJS(this.userPeriods)).length) {
-            const periods = toJS(this.userPeriods);
-            _.keys(periods).forEach(function(period) {
-                userPeriods.push (
-                    <li key={period} className="list-group-item my-0 py-0">
-                        <NavLink
-                            onClick={() => { periodChange(period, 'user'); }}
-                        >
-                            {periods[period].label}
+        const sysPeriods = toJS(this.sysPeriods);
+        const userPeriods = toJS(this.userPeriods);
+
+        if (sysPeriods && sysPeriods.length) {
+            sysPeriods.forEach(function(period) {
+                sysContent.push (
+                    <li key={period.name} className="list-group-item my-0 py-0">
+                        <NavLink onClick={() => { periodChange(period.name, 'system'); }}>
+                            {period.name}
+                        </NavLink>
+                    </li>
+                );
+            });
+        }
+
+        if (userPeriods && userPeriods.length) {
+            userPeriods.forEach(function(period) {
+                userContent.push (
+                    <li key={period.name} className="list-group-item my-0 py-0">
+                        <NavLink onClick={() => { periodChange(period.name, 'user'); }}>
+                            {period.name}
                         </NavLink>
                     </li>
                 );
@@ -102,13 +108,13 @@ class PeriodsList extends Component {
                 <TabContent activeTab={this.tabActive} >
                     <TabPane tabId="sys">
                         <ul className="list-group">
-                        {sysPeriods}
+                        {sysContent}
                         </ul>
                     </TabPane>
 
                     <TabPane tabId="user">
                         <ul className="list-group">
-                            {userPeriods}
+                            {userContent}
                         </ul>
                     </TabPane>
 

@@ -9,9 +9,25 @@ var rFactor = function (multi) {
     return Math.round(Math.random() * multi);
 };
 
+const loadBarData = function() {
+    axios.get(
+        `/res/dashboard/bar-data`,
+        {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+    )
+    .then(
+        (res) => {
+            console.info('>>>>>>>>>>> /res/dashboard/bar-data', res.data);
+        }
+    );
+}
+
 const barData = function(id = '__') {
     return {
-        labels: [`January ${id}`, 'February3', 'March3', 'April3', 'May3', 'June3', 'July3', 'August3', 'September', 'October', 'November', 'December'],
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
         datasets: [
             {
                 label: 'Apple',
@@ -97,7 +113,7 @@ const BarchartState = {
 };
 
 class ChartSection extends Component {
-    
+
     constructor(props) {
         super(props);
         this.dropdownbar1Open = this.dropdownbar1Open.bind(this);
@@ -117,25 +133,28 @@ class ChartSection extends Component {
         this.onLineChartRefresh = this.onLineChartRefresh.bind(this);
         this.onItemClick = this.onItemClick.bind(this);
     }
-    
+
     componentWillMount() {
         this.setState(LinechartState);
         this.setState(BarchartState);
         const timeOut = 10 * rFactor(500)
-        console.info('-----------------', timeOut / 1000, this.state);
-        
-        setTimeout(() => {
-            this.setState({
-                barData_1: barData('org'),
-                barData_2: barData('org'),
-            })
-        }, 10 * rFactor(500));
-        
+
+//        setTimeout(() => {
+//            this.setState({
+//                barData_1: barData('org'),
+//                barData_2: barData('org'),
+//            })
+//        }, 10 * rFactor(500));
+
         setTimeout(() => {
             this.setState({
                 lineData: lineData(),
             })
         }, 10 * rFactor(500));
+        
+        this.onBarRefresh(1);
+        this.onBarRefresh(2);
+//        loadBarData();
     };
 
     dropdownbar1Open() {
@@ -149,31 +168,50 @@ class ChartSection extends Component {
             dropdownbar2Open: !prevState.dropdownbar2Open
         }));
     };
-    
+
     dropdownlineOpen() {
         this.setState(prevState => ({
 
             dropdownlineOpen: !prevState.dropdownlineOpen
         }));
     }
-    
-    onBarRefresh(key=1) {
 
-        this.setState({
-            [`barData_${key}`]: barData(`(ref:${key})`),
-        })
-    };
-    
+//    onBarRefresh(key=1) {
+//
+//        this.setState({
+//            [`barData_${key}`]: barData(`(ref:${key})`),
+//        })
+//    };
+
     onLineChartRefresh() {
         this.setState({
             lineData: lineData(),
         })
     };
-    
+
     onItemClick() {
         console.info('#############################################');
     }
     
+    onBarRefresh(key=1) {
+        axios.get(
+            `/res/dashboard/bar-data`,
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        )
+        .then(
+            (res) => {
+                console.info('>>>>>>>>>>> /res/dashboard/bar-data', res.data);
+                this.setState({
+                    [`barData_${key}`]: res.data,
+                })
+            }
+        );
+    }
+
     render() {
         return (
             <Row>
@@ -199,17 +237,17 @@ class ChartSection extends Component {
                             </div>
                             <div className="row h-100 justify-content-center align-items-center">
                                 <div className="col-4 text-center">
-                                    <h6>Apple</h6>
+                                    <h6>Bruen-Kunze</h6>
                                     <b className="text-info">+ 82.24 % </b>
                                 </div>
 
                                 <div className="col-4 text-center">
-                                    <h6>Google</h6>
+                                    <h6>Kirlin-Kunze</h6>
                                     <b className="text-warning">+ 24.86 % </b>
                                 </div>
 
                                 <div className="col-4 text-center">
-                                    <h6>Twitter</h6>
+                                    <h6>Balistreri, Larson and Wintheiser</h6>
                                     <b className="text-warning">+ 78.86 % </b>
                                 </div>
                             </div>
@@ -259,17 +297,17 @@ class ChartSection extends Component {
                         </div>
                         <div className="row h-100 justify-content-center align-items-center">
                             <div className="col-4 text-center">
-                                <h6>Apple</h6>
+                                <h6>Bruen-Kunze</h6>
                                 <b className="text-info">+ 82.24 % </b>
                             </div>
-
+    
                             <div className="col-4 text-center">
-                                <h6>Google</h6>
+                                <h6>Kirlin-Kunze</h6>
                                 <b className="text-warning">+ 24.86 % </b>
                             </div>
-
+    
                             <div className="col-4 text-center">
-                                <h6>Twitter</h6>
+                                <h6>Balistreri, Larson and Wintheiser</h6>
                                 <b className="text-warning">+ 78.86 % </b>
                             </div>
                         </div>

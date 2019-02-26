@@ -115,11 +115,13 @@ class DatePickers extends React.Component {
                     <Col md={6}>
                         <Card className="card-statistics mb-30">
                             <CardBody className="datepicker-form">
-                                <CardTitle>Input</CardTitle>
+                                <CardTitle>Input.</CardTitle>
                                 <DatePicker
                                     className="form-control"
                                     selected={this.state.simpleDate}
                                     onChange={this.handleChange}
+                                    dateFormat="YYYY-MM-DD"
+                                    locale="et"
                                 />
                             </CardBody>
                         </Card>
@@ -132,8 +134,9 @@ class DatePickers extends React.Component {
                                     onChange={this.handlsettimeChange}
                                     showTimeSelect
                                     timeFormat="HH:mm"
-                                    timeIntervals={15}
-                                    dateFormat="LLL"
+                                    timeIntervals={5}
+                                    dateFormat="YYYY-MM-DD"
+                                    locale="et"
                                     timeCaption="time"
                                 />
                             </CardBody>
@@ -143,7 +146,8 @@ class DatePickers extends React.Component {
                                 <CardTitle>Custom date format</CardTitle>
                                 <DatePicker
                                     className="form-control"
-                                    dateFormat="YYYY/MM/DD"
+                                    dateFormat="YYYY-MM-DD"
+                                    locale="et"
                                     selected={this.state.customedate}
                                     onChange={this.customehendler} />
                             </CardBody>
@@ -155,6 +159,8 @@ class DatePickers extends React.Component {
                                     className="form-control"
                                     selected={this.state.specificdate}
                                     onChange={this.specificdatehandle}
+                                    dateFormat="YYYY-MM-DD"
+                                    locale="et"
                                     minDate={moment()}
                                     maxDate={moment().add(5, "days")}
                                     placeholderText="Select Dates"
@@ -168,6 +174,8 @@ class DatePickers extends React.Component {
                                     className="form-control"
                                     selected={this.state.highlightdate}
                                     onChange={this.highlightdatehandle}
+                                    dateFormat="YYYY-MM-DD"
+                                    locale="et"
                                     highlightDates={[moment().subtract(7, "days"), moment().add(7, "days")]}
                                     placeholderText="Please Select Dates" />
                             </CardBody>
@@ -185,6 +193,7 @@ class DatePickers extends React.Component {
                                         startDate={this.state.startDate}
                                         endDate={this.state.endDate}
                                         onChange={this.handleChangeStart}
+                                        dateFormat="YYYY-MM-DD"
                                     />
                                     <span>&nbsp;&nbsp;To &nbsp;&nbsp;</span>
                                     <DatePicker
@@ -194,6 +203,7 @@ class DatePickers extends React.Component {
                                         startDate={this.state.startDate}
                                         endDate={this.state.endDate}
                                         onChange={this.handleChangeEnd}
+                                        dateFormat="YYYY-MM-DD"
                                     />
                                 </div>
                             </CardBody>
@@ -207,6 +217,7 @@ class DatePickers extends React.Component {
                                     isClearable={true}
                                     className="form-control"
                                     placeholderText="I have been cleared!"
+                                    dateFormat="YYYY-MM-DD"
                                 />
                             </CardBody>
                         </Card>
@@ -221,6 +232,7 @@ class DatePickers extends React.Component {
                                     scrollableYearDropdown
                                     className="form-control"
                                     yearDropdownItemNumber={15}
+                                    dateFormat="YYYY-MM-DD"
                                 />
                             </CardBody>
                         </Card>
@@ -232,6 +244,7 @@ class DatePickers extends React.Component {
                                         className="form-control"
                                         selected={this.state.monthstate}
                                         onChange={this.monthhandle}
+                                        dateFormat="YYYY-MM-DD"
                                         showMonthDropdown
                                     />
                                 </div>

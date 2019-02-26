@@ -10,11 +10,13 @@
  * | contains the "web" middleware group. Now create something great!
  * |
  */
+// use Lang;
 Route::middleware('auth')->prefix('res')->namespace('Api')->group(function () {
 
     Route::get('auth/user', 'ApiController@getAuthUser')->name('auth.user');
     Route::resources([
-        'chat' => 'ChatController'
+        'chat' => 'ChatController',
+        'tv/spot' => 'TvSpotController'
     ]);
 
     Route::get('chat/{chatid}/messages', 'ChatMessageController@index');
@@ -22,28 +24,29 @@ Route::middleware('auth')->prefix('res')->namespace('Api')->group(function () {
 
     Route::prefix('config')->group(function () {
         Route::prefix('user')->group(function () {
-            Route::get('date_periods', function () {
-                return [
-                    'custom_1' => [
-                        'label' => 'custom_1'
-                    ],
-                    'custom_2' => [
-                        'label' => 'custom_2'
-                    ],
-                    'custom_3' => [
-                        'label' => 'custom_3'
-                    ],
-                    'custom_4' => [
-                        'label' => 'custom_4'
-                    ]
-                ];
-            });
+            Route::get('date_periods', 'ConfigController@datePresets');
         });
+    });
+
+    Route::prefix('dashboard')->group(function () {
+        Route::get('bar-data', 'DashboardController@getBarData');
+    });
+
+    Route::get('langs', function () {
+
+        $languages = File::directories(base_path() . '/resources/lang');
+
+        return [
+            'languages' => $languages,
+            'validation' => trans('validation'),
+            'lang' => Lang::locale()
+        ];
     });
 });
 Auth::routes();
 
 Route::middleware('auth')->group(function () {
+
     Route::fallback(function () {
         return View::make('index');
     });

@@ -53,8 +53,22 @@ class Dashboard extends React.Component {
         this.onEventResize = this.onEventResize.bind(this);
         this.onEventDrop = this.onEventDrop.bind(this);
 
+        this.loadTvSpots();
     }
 
+    loadTvSpots() {
+
+        axios.get(`/res/tv/spot`)
+        .then(
+            (res) => {
+                console.info('>>>>>>>>>>>>>>>>>>>>>>>>', res);
+            }
+        ).catch(
+            (error) => {
+                console.info('UUUUUUUUUUUUUUUU', error);
+            }
+        );
+    }
 
     tabsclick(tab) {
         if (this.state.activeTab !== tab) {

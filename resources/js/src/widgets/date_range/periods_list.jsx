@@ -17,31 +17,13 @@ class PeriodsList extends Component {
         this.periodChange = this.periodChange.bind(this);
 
         extendObservable(this, {
-            userPeriods: [],
-            sysPeriods: [],
-            tabActive: 'sys'
+            userPeriods: props.userPeriods,
+            sysPeriods: props.sysPeriods,
+            tabActive: 'sys',
         });
-
-        this.getUserPeriods();
     }
 
-    getUserPeriods() {
-        axios.get(
-            `/res/config/user/date_periods`, 
-            {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }
-        )
-        .then(
-            (res) => {
-                console.info('>>>>>>>>>>> /res/config/user/date_periods', res.data, this.userPeriods);
-                this.userPeriods = res.data.user;
-                this.sysPeriods = res.data.system;
-            }
-        );
-    }
+
 
     tabbordericon(tab) {
         if (this.tabActive !== tab) {

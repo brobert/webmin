@@ -33,6 +33,25 @@ class DateRange extends Component {
             startDate: moment(),
             endDate: moment(),
         });
+
+        this.getPeriods();
+    }
+
+    getPeriods() {
+        axios.get(
+            `/res/config/user/date_periods`, 
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        )
+        .then(
+            (res) => {
+                this.sysPeriods = res.data.system;
+                this.userPeriods = res.data.user;
+            }
+        );
     }
 
     togglePoppover() {
@@ -84,7 +103,11 @@ class DateRange extends Component {
                     <ModalBody>
                         <Row>
                             <Col>
-                                <PeriodsList onChange={this.onClickHandler}/>
+                                <PeriodsList
+                                    sysPeriods={this.sysPeriods}
+                                    userPeriods={this.userPeriods}
+                                    onChange={this.onClickHandler}
+                                />
                             </Col>
                             <Col>
                                 <div className="input-group" style={{flexWrap: 'nowrap'}} data-date="23/11/2018" data-date-format="mm/dd/yyyy">

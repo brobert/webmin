@@ -11,9 +11,8 @@ class DashboardController extends ApiController {
 
     public function getBarData(Request $request) {
 
-        $faker = Faker::create();
-
         $products = $request->session()->get('barProducts', function () {
+            $faker = Faker::create();
             $newProducts = [];
             for($i = 1; $i <= 3; $i++) {
                 $newProducts [] = $faker->company;
@@ -32,6 +31,8 @@ class DashboardController extends ApiController {
         for($m = 1; $m <= 12; ++$m) {
             $labels [] = date('F', mktime(0, 0, 0, $m, 1));
         }
+
+        $faker = Faker::create();
 
         foreach ( $products as $prod ) {
             $color = $faker->hexcolor;

@@ -1,4 +1,5 @@
 <?php
+use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 
 
@@ -112,7 +113,12 @@ class DatePresetSeeder extends Seeder {
      */
     public function run() {
 
+        $faker = Faker::create();
+
         foreach ( $this->presets as $preset ) {
+            $preset['system'] = $faker->boolean(70);
+            $preset['selectable_by_user'] = $faker->boolean(40);
+
             factory(App\Models\DatePreset::class)->create($preset);
         }
     }

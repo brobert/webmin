@@ -25,3 +25,10 @@ resources/views/vendor/
 /public/css/main.css
 /public/js/main.js
 /public/*.hot-update.js*
+/public/fontawesome-webfont.eot
+/public/fontawesome-webfont.svg
+/public/fontawesome-webfont.ttf
+/public/index.html
+/public/main.css
+/public/themify.svg
+/webmin.komodoproject

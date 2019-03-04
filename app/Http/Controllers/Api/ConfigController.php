@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Api\ApiController;
-
-// models
 use App\Models\DatePreset;
+use Illuminate\Http\Request;
 
 
 class ConfigController extends ApiController {
 
     public function datePresets(Request $request) {
 
+        $datePreset = new DatePreset();
         return [
-            'user' => DatePreset::user()->get(),
-            'system' => DatePreset::system()->get()
+            'user' => $datePreset->forUser()->get(),
+            'system' => $datePreset->system()->get(),
         ];
     }
 }

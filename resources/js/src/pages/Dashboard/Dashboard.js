@@ -101,7 +101,8 @@ class Dashboard extends React.Component {
 
                 <Row>
                     <Col xl={4} className="mb-30">
-                        <DateRange />
+                        <DateRange 
+                        />
                     </Col>
                 </Row>
                 <InfoPanelRow />

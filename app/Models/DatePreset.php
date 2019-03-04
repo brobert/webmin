@@ -12,7 +12,7 @@ class DatePreset extends Model {
         return $query->where('system', true);
     }
 
-    public function scopeUser($query) {
+    public function scopeForUser($query) {
 
         return $query->where('selectable_by_user', true);
     }

@@ -13,6 +13,7 @@ class CreateDatePresetsTable extends Migration {
      */
     public function up() {
 
+        $this->down();
         Schema::create('date_presets', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 50)->index();
@@ -20,6 +21,13 @@ class CreateDatePresetsTable extends Migration {
             $table->string('end', 50)->nullable();
             $table->boolean('system')->default(false)->index();
             $table->boolean('selectable_by_user')->default(false)->index();
+            $table->timestamps();
+        });
+
+        Schema::create('date_preset_user', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('date_preset_id');
+            $table->integer('user_id');
             $table->timestamps();
         });
     }
@@ -32,5 +40,6 @@ class CreateDatePresetsTable extends Migration {
     public function down() {
 
         Schema::dropIfExists('date_presets');
+        Schema::dropIfExists('date_preset_user');
     }
 }

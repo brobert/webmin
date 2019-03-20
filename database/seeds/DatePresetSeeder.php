@@ -22,7 +22,7 @@ class DatePresetSeeder extends Seeder {
         ],
         [
             'name' => 'current_week',
-            'begin' => '0_week_ago_begin',
+            'begin' => 'last_0_week_begin',
             'end' => '0_day_ago',
             'system' => true,
             'selectable_by_user' => true
@@ -36,71 +36,71 @@ class DatePresetSeeder extends Seeder {
         ],
         [
             'name' => 'last_week',
-            'begin' => '1_week_ago_begin',
-            'end' => '1_week_ago_end',
+            'begin' => 'last_1_week_begin',
+            'end' => 'last_1_week_end',
             'system' => true,
             'selectable_by_user' => true
         ],
         [
             'name' => 'current_month',
-            'begin' => '0_month_ago_begin',
+            'begin' => 'last_0_month_begin',
             'end' => '0_day_ago',
             'system' => true,
             'selectable_by_user' => true
         ],
         [
             'name' => 'last_month',
-            'begin' => '1_month_ago_begin',
-            'end' => '1_month_ago_end',
+            'begin' => 'last_1_month_begin',
+            'end' => 'last_1_month_end',
             'system' => true,
             'selectable_by_user' => true
         ],
         [
             'name' => 'last_3_month',
-            'begin' => '3_month_ago_begin',
-            'end' => '1_month_ago_end',
+            'begin' => 'last_3_month_begin',
+            'end' => 'last_1_month_end',
             'system' => true,
             'selectable_by_user' => true
         ],
         [
             'name' => 'last_6_month',
-            'begin' => '6_month_ago_begin',
-            'end' => '1_month_ago_end',
+            'begin' => 'last_6_month_begin',
+            'end' => 'last_1_month_end',
             'system' => true,
             'selectable_by_user' => true
         ],
         [
             'name' => 'last_12_month',
-            'begin' => '12_month_ago_begin',
-            'end' => '1_month_ago_end',
+            'begin' => 'last_12_month_begin',
+            'end' => 'last_1_month_end',
             'system' => true,
             'selectable_by_user' => true
         ],
         [
             'name' => 'current_quarter',
-            'begin' => '0_quarter_ago_begin',
-            'end' => '0_quarter_ago_end',
+            'begin' => 'last_0_quarter_begin',
+            'end' => 'last_0_quarter_end',
             'system' => true,
             'selectable_by_user' => true
         ],
         [
             'name' => 'last_quarter',
-            'begin' => '1_quarter_ago_begin',
-            'end' => '1_quarter_ago_end',
+            'begin' => 'last_1_quarter_begin',
+            'end' => 'last_1_quarter_end',
             'system' => true,
             'selectable_by_user' => true
         ],
         [
             'name' => 'current_year',
-            'begin' => '0_year_ago_begin',
-            'end' => '0_year_ago_end',
+            'begin' => 'last_0_year_begin',
+            'end' => 'last_0_year_end',
             'system' => true,
             'selectable_by_user' => true
         ],
         [
             'name' => 'last_year',
-            'begin' => '1_year_ago_begin',
-            'end' => '1_year_ago_end',
+            'begin' => 'last_1_year_begin',
+            'end' => 'last_1_year_end',
             'system' => true,
             'selectable_by_user' => true
         ]
@@ -116,10 +116,26 @@ class DatePresetSeeder extends Seeder {
         $faker = Faker::create();
 
         foreach ( $this->presets as $preset ) {
-            $preset['system'] = $faker->boolean(70);
-            $preset['selectable_by_user'] = $faker->boolean(40);
+            $preset ['system'] = $faker->boolean(70);
+            $preset ['selectable_by_user'] = $faker->boolean(40);
 
-            factory(App\Models\DatePreset::class)->create($preset);
+            $presetModel = factory(App\Models\DatePreset::class)->create($preset);
+            echo "presetModel" . print_r($presetModel->toArray(), true);
+
+            if ($preset ['selectable_by_user']) {
+
+                $presetModel->user()->attach($faker->randomElement([
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8
+                ], 3));
+                $presetModel->save();
+            }
         }
     }
 }

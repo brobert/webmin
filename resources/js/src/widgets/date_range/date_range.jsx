@@ -16,9 +16,10 @@ class DateRange extends Component {
 
         this._key = new Date().getMilliseconds();
 
-        this.onClickHandler = this.onClickHandler.bind(this);
+        this.onChangePeriod = this.onChangePeriod.bind(this);
         this.togglePoppover = this.togglePoppover.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
+        this.applySelection = this.applySelection.bind(this);
 
         this.daterangeChange = this.daterangeChange.bind(this);
         this.handleChangeEnd = this.handleChangeEnd.bind(this);
@@ -62,7 +63,11 @@ class DateRange extends Component {
         this.modalOpened = !this.modalOpened;
     }
 
-    onClickHandler(value = '') {
+    applySelection() {
+        this.toggleModal();
+    }
+
+    onChangePeriod(value = '') {
         const ms = new Date().getMilliseconds();
         this.btnLabel = `++ selected dates [${value}]+++`;
     }
@@ -106,7 +111,7 @@ class DateRange extends Component {
                                 <PeriodsList
                                     sysPeriods={this.sysPeriods}
                                     userPeriods={this.userPeriods}
-                                    onChange={this.onClickHandler}
+                                    onChange={this.onChangePeriod}
                                 />
                             </Col>
                             <Col>
@@ -135,7 +140,7 @@ class DateRange extends Component {
                         </Row>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.toggleModal}>Do Something</Button>{' '}
+                        <Button color="primary" onClick={this.applySelection}>Apply</Button>{' '}
                         <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>

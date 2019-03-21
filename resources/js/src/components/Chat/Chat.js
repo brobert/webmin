@@ -32,8 +32,6 @@ class Chat extends React.Component {
         axios.get(`/res/chat`)
         .then(
             (res) => {
-                
-                console.info('>>>>>>>>>>>>>>>>>>>>>>>>', res.data.data);
                 const chats = res.data.data;
                 const activeTab = chats.length ? `${chats[0].id}` : "";
                 const name = chats.length ? chats[0].name : "";

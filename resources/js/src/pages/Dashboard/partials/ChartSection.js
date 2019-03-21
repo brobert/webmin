@@ -139,13 +139,6 @@ class ChartSection extends Component {
         this.setState(BarchartState);
         const timeOut = 10 * rFactor(500)
 
-//        setTimeout(() => {
-//            this.setState({
-//                barData_1: barData('org'),
-//                barData_2: barData('org'),
-//            })
-//        }, 10 * rFactor(500));
-
         setTimeout(() => {
             this.setState({
                 lineData: lineData(),
@@ -154,7 +147,7 @@ class ChartSection extends Component {
         
         this.onBarRefresh(1);
         this.onBarRefresh(2);
-//        loadBarData();
+
     };
 
     dropdownbar1Open() {
@@ -204,7 +197,6 @@ class ChartSection extends Component {
         )
         .then(
             (res) => {
-                console.info('>>>>>>>>>>> /res/dashboard/bar-data', res.data);
                 this.setState({
                     [`barData_${key}`]: res.data,
                 })

@@ -63,12 +63,11 @@ class PeriodsList extends Component {
 
         return (begin === end) ? begin : `${begin} - ${end}`;
     }
-    
+
     changeCompare(compareMode) {
         console.info(`>>> changeCompare: ${compareMode}`);
     }
-    
-    
+
     render() {
 
         const periodChange = this.periodChange;
@@ -90,8 +89,9 @@ class PeriodsList extends Component {
                         {
                             periods.map(
                                 (period) => {
+                                    const activeClass = period.name === this.props.period ? 'active' : '';
                                     return (
-                                        <li key={period.name} className="list-group-item my-0 py-0">
+                                        <li key={period.name} className={`list-group-item my-0 py-0 ${activeClass}`}>
                                             <NavLink onClick={() => { periodChange(period.name, scope); }}>
                                                 {period.name}
                                                 <span
@@ -135,18 +135,22 @@ class PeriodsList extends Component {
                         </Nav>
                     </Col>
                     <Col xs="4">
-                        <Dropdown isOpen={this.state.nocaretdemo} toggle={this.nocaretdemo}>
-                            <DropdownToggle  color="success">
-                                Compare
-                            </DropdownToggle>
-                            <DropdownMenu>
-                                <DropdownItem onClick={() => this.changeCompare('off')}>Off</DropdownItem>
-                                <DropdownItem divider />
-                                <DropdownItem onClick={() => this.changeCompare('prevPeriod')}>Previous period</DropdownItem>
-                                <DropdownItem onClick={() => this.changeCompare('prevYear')}>Previous year</DropdownItem>
-                                <DropdownItem onClick={() => this.changeCompare('custom')}>Custom range</DropdownItem>
-                            </DropdownMenu>
-                        </Dropdown>
+                        { this.props.compare 
+                            ? (
+                                <Dropdown isOpen={this.state.nocaretdemo} toggle={this.nocaretdemo}>
+                                    <DropdownToggle  color="success">
+                                        Compare
+                                    </DropdownToggle>
+                                    <DropdownMenu>
+                                        <DropdownItem onClick={() => this.changeCompare('off')}>Off</DropdownItem>
+                                        <DropdownItem divider />
+                                        <DropdownItem onClick={() => this.changeCompare('prevPeriod')}>Previous period</DropdownItem>
+                                        <DropdownItem onClick={() => this.changeCompare('prevYear')}>Previous year</DropdownItem>
+                                        <DropdownItem onClick={() => this.changeCompare('custom')}>Custom range</DropdownItem>
+                                    </DropdownMenu>
+                                </Dropdown>
+                            ) : null
+                        }
                     </Col>
                 </Row>
                 <TabContent activeTab={this.tabActive} >

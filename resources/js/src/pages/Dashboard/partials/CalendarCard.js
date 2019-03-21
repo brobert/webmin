@@ -12,7 +12,7 @@ class CalendarDay extends Component {
     
     constructor(props) {
         super(props);
-        console.info('CalendarDay::constructor::props', props, props.event.start);
+        // console.info('CalendarDay::constructor::props', props, props.event.start);
     }
     
     render() {
@@ -73,8 +73,7 @@ class CalendarCard extends Component {
      * onEventDrop
      */
     onEventDrop({ event, start, end, isAllDay: droppedOnAllDaySlot }) {
-        
-        console.info('>>>>>>>>>> EVENT: ', event);
+
         const { events } = this.state;
 
         const idx = events.indexOf(event);

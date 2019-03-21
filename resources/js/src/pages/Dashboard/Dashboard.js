@@ -53,21 +53,6 @@ class Dashboard extends React.Component {
         this.onEventResize = this.onEventResize.bind(this);
         this.onEventDrop = this.onEventDrop.bind(this);
 
-        this.loadTvSpots();
-    }
-
-    loadTvSpots() {
-
-        axios.get(`/res/tv/spot`)
-        .then(
-            (res) => {
-                console.info('>>>>>>>>>>>>>>>>>>>>>>>>', res);
-            }
-        ).catch(
-            (error) => {
-                console.info('UUUUUUUUUUUUUUUU', error);
-            }
-        );
     }
 
     tabsclick(tab) {
@@ -94,15 +79,31 @@ class Dashboard extends React.Component {
 
     render() {
         const DnDCalendar = withDragAndDrop(Calendar);
+
+        const calendarOpt = {
+            compare: false,
+            changeChandler: (data) => {console.info('DateRange::changeChandler::data', data)},
+            begin: 'last_0_week_begin',
+            end: 'yesterday'
+        };
+
         return (
             <div>
                 <PageTitle pageTitle="Dashboard" crumbs={[]} />
                 {/* <!-- widgets --> */}
 
                 <Row>
-                    <Col xl={4} className="mb-30">
-                        <DateRange 
-                        />
+                    <Col xl={3} className="mb-30">
+                        <DateRange {...calendarOpt} />
+                    </Col>
+                    <Col xl={3} className="mb-30">
+                        <DateRange {...calendarOpt} compare/>
+                    </Col>
+                    <Col xl={3} className="mb-30">
+                        <DateRange {...calendarOpt} begin="2018-01-01"/>
+                    </Col>
+                    <Col xl={3} className="mb-30">
+                        <DateRange {...calendarOpt} />
                     </Col>
                 </Row>
                 <InfoPanelRow />

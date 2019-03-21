@@ -10,8 +10,6 @@ class Header extends Component{
             defaultValue: 1
         };
         this.togglebutton = this.togglebutton.bind(this);
-        console.log(process.env.PUBLIC_URL);
-        console.log(process.env.NODE_ENV);
     }
 
     togglebutton(toggleactive) {
@@ -19,8 +17,7 @@ class Header extends Component{
     };
  
     render(){
-        
-        console.info('>>>HEADER PROPS', this.props);
+
         return(
               <nav className="admin-header navbar navbar-default col-lg-12 col-12 p-0 fixed-top d-flex flex-row"> 
 
@@ -43,10 +40,10 @@ class Header extends Component{
                             </div>
                         </li>
                     </ul>
-             
+
                     {/* <!-- top bar right --> */}
                     <ul className="nav navbar-nav ml-auto">
-                  
+
                         <li className="nav-item fullscreen">
                             <a id="btnFullscreen" className="nav-link" ><i className="ti-fullscreen"></i></a>
                         </li>
@@ -55,13 +52,13 @@ class Header extends Component{
                             <i className="ti-bell"></i>
                             <span className="badge badge-danger notification-status"> </span>
                             </a>
-                           
+
                             <div className="dropdown-menu dropdown-menu-right dropdown-big dropdown-notifications">
                             <div className="dropdown-header notifications">
                                 <strong>Notifications</strong>
                                 <span className="badge badge-pill badge-warning">05</span>
                             </div>
-                          
+
                             <div className="dropdown-divider"></div>
                                 <a href="#" className="dropdown-item">New registered user <small className="float-right text-muted time">Just now</small> </a>
                                 <a href="#" className="dropdown-item">New invoice received <small className="float-right text-muted time">22 mins</small> </a>
@@ -69,7 +66,7 @@ class Header extends Component{
                                 <a href="#" className="dropdown-item">Database report<small className="float-right text-muted time">1 days</small> </a>
                                  <a href="#" className="dropdown-item">Order confirmation<small className="float-right text-muted time">2 days</small> </a>
                             </div>
-                           
+
                         </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link top-nav" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true"> <i className=" ti-view-grid"></i> </a>

@@ -10,15 +10,17 @@ export function getPresentDay() {
 };
 
 
-export function parseStringedDate(date, dateFormat='YYYY-MM-DD') {
+export function parseStringedDate(date, options = { toString: true}) {
 
     if (!date) {
         return null;
     }
+    const dateFormat='YYYY-MM-DD';
+
     let pDate = new Date(date);
 
     if (pDate instanceof Date && !isNaN(pDate)) {
-        return date;
+        return Moment(pDate);
     }
 
     // temporary date
@@ -30,6 +32,7 @@ export function parseStringedDate(date, dateFormat='YYYY-MM-DD') {
         case 'yesterday':
             tDate = getPresentDay();
             tDate.setDate(tDate.getDate() -1);
+            tDate = Moment(tDate);
             break;
         case 'week_begin':
             tDate = calc_last_x_date_part(getPresentDay(), 0, 'week', 'begin');
@@ -64,7 +67,7 @@ export function parseStringedDate(date, dateFormat='YYYY-MM-DD') {
         }
     }
 
-    return Moment(tDate).format(dateFormat)
+    return options.toString ? Moment(tDate).format(dateFormat) : tDate;
 }
 
 export function calc_last_x_date_part(dt, count, period, type) {

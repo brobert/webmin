@@ -34,7 +34,6 @@ class App extends React.Component {
         axios.get(`/res/auth/user`)
         .then(
             (res) => {
-                console.info('>>>>>>>>>>>>>>>>>> ', res);
                 this.setState({
                     ready: true,
                     authUser: res.data,
@@ -45,7 +44,6 @@ class App extends React.Component {
             (error) => {
                 this.setState({
                     ready: true,
-//                    authUser: res,
                 });
             }
         );

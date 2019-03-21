@@ -8,17 +8,18 @@ import moment from 'moment';
 
 import MainButton from './main_button.jsx';
 import PeriodsList from './periods_list.jsx';
+import { parseStringedDate } from './date_helpers';
 
 class DateRange extends Component {
 
     constructor(props) {
         super(props);
 
+        console.info('DateRange::constructor(props) ', props);
         this._key = new Date().getMilliseconds();
 
         this.onChangePeriod = this.onChangePeriod.bind(this);
-        this.togglePoppover = this.togglePoppover.bind(this);
-        this.toggleModal = this.toggleModal.bind(this);
+        this.toggleSelectorModal = this.toggleSelectorModal.bind(this);
         this.applySelection = this.applySelection.bind(this);
 
         this.daterangeChange = this.daterangeChange.bind(this);
@@ -27,14 +28,19 @@ class DateRange extends Component {
 
         extendObservable(this, {
             btnLabel: '-----',
-            isOpened: false,
             modalOpened: false,
             sysPeriods: [],
             userPeriods: [],
-            startDate: moment(),
-            endDate: moment(),
+            startDate: props.begin ? parseStringedDate(props.begin, {toString:false}) : moment(),
+            endDate: props.end ? parseStringedDate(props.end, {toString:false}) : moment(),
+            period: false,
+
+            tmpStartDate: false,
+            tmpEndDate: false,
         });
 
+        console.info('====> startDate', props.begin, this.startDate);
+        console.info('====> endDate', props.end, this.endDate);
         this.getPeriods();
     }
 
@@ -51,25 +57,32 @@ class DateRange extends Component {
             (res) => {
                 this.sysPeriods = res.data.system;
                 this.userPeriods = res.data.user;
+
+                this.getCurrentPeriodFromDates();
             }
         );
     }
 
-    togglePoppover() {
-        this.isOpened = !this.isOpened;
+    getCurrentPeriodFromDates() {
+        this.period = this.sysPeriods[0].name;
+
+        console.info('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>this.sysPeriods[0] ', this.period, this.sysPeriods);
     }
 
-    toggleModal() {
+    // Open or close selector modal window
+    toggleSelectorModal() {
         this.modalOpened = !this.modalOpened;
     }
 
     applySelection() {
-        this.toggleModal();
+        this.btnLabel = `++ selected dates [${this.period}]+++`;
+        this.toggleSelectorModal();
     }
 
     onChangePeriod(value = '') {
         const ms = new Date().getMilliseconds();
-        this.btnLabel = `++ selected dates [${value}]+++`;
+//        this.btnLabel = `++ selected dates [${value}]+++`;
+        this.period = value;
     }
 
     daterangeChange({ startDate, endDate }) {
@@ -99,11 +112,11 @@ class DateRange extends Component {
             <div className="date-range-selector">
                 <MainButton 
                     id={`drs_${this._key}`}
-                    onClickHandler={this.toggleModal}
+                    onClickHandler={this.toggleSelectorModal}
                     label={this.btnLabel}
                 />
-                <Modal isOpen={this.modalOpened} toggle={this.toggleModal} className={`${this.props.className} modal-lg`}>
-                    <ModalHeader toggle={this.toggleModal}>Modal title
+                <Modal isOpen={this.modalOpened} toggle={this.toggleSelectorModal} className={`${this.props.className} modal-lg`}>
+                    <ModalHeader toggle={this.toggleSelectorModal}>Modal title
                     </ModalHeader>
                     <ModalBody>
                         <Row>
@@ -112,6 +125,8 @@ class DateRange extends Component {
                                     sysPeriods={this.sysPeriods}
                                     userPeriods={this.userPeriods}
                                     onChange={this.onChangePeriod}
+                                    period = {this.period}
+                                    compare = {this.props.compare}
                                 />
                             </Col>
                             <Col>
@@ -141,7 +156,7 @@ class DateRange extends Component {
                     </ModalBody>
                     <ModalFooter>
                         <Button color="primary" onClick={this.applySelection}>Apply</Button>{' '}
-                        <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
+                        <Button color="secondary" onClick={this.toggleSelectorModal}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
             </div>

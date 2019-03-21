@@ -3,8 +3,8 @@ use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 
 
-class DatePresetSeeder extends Seeder {
-
+class DatePresetSeeder extends Seeder
+{
     private $presets = [
         [
             'name' => 'today',
@@ -23,7 +23,7 @@ class DatePresetSeeder extends Seeder {
         [
             'name' => 'current_week',
             'begin' => 'last_0_week_begin',
-            'end' => '0_day_ago',
+            'end' => 'yesterdayo',
             'system' => true,
             'selectable_by_user' => true
         ],
@@ -111,20 +111,22 @@ class DatePresetSeeder extends Seeder {
      *
      * @return void
      */
-    public function run() {
+    public function run()
+    {
+        $faker = Faker::create ();
 
-        $faker = Faker::create();
+        foreach ( $this->presets as $preset )
+        {
+            $preset ['system'] = $faker->boolean ( 70 );
+            $preset ['selectable_by_user'] = $faker->boolean ( 40 );
 
-        foreach ( $this->presets as $preset ) {
-            $preset ['system'] = $faker->boolean(70);
-            $preset ['selectable_by_user'] = $faker->boolean(40);
+            $presetModel = factory ( App\Models\DatePreset::class )->create ( $preset );
+            echo "presetModel" . print_r ( $presetModel->toArray (), true );
 
-            $presetModel = factory(App\Models\DatePreset::class)->create($preset);
-            echo "presetModel" . print_r($presetModel->toArray(), true);
+            if ($preset ['selectable_by_user'])
+            {
 
-            if ($preset ['selectable_by_user']) {
-
-                $presetModel->user()->attach($faker->randomElement([
+                $presetModel->user ()->attach ( $faker->randomElement ( [
                     1,
                     2,
                     3,
@@ -133,8 +135,8 @@ class DatePresetSeeder extends Seeder {
                     6,
                     7,
                     8
-                ], 3));
-                $presetModel->save();
+                ], 3 ) );
+                $presetModel->save ();
             }
         }
     }

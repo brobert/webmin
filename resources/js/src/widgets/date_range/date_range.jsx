@@ -5,6 +5,7 @@ import { observer } from 'mobx-react';
 import { TabContent, TabPane, Modal, ModalHeader, ModalBody, ModalFooter, Tooltip, Card, CardBody, CardTitle, PopoverHeader, PopoverBody, Button, Popover, Row, Col } from 'reactstrap';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
+import _ from 'underscore';
 
 import MainButton from './main_button.jsx';
 import PeriodsList from './periods_list.jsx';
@@ -35,18 +36,18 @@ class DateRange extends Component {
             endDate: props.end ? parseStringedDate(props.end, {toString:false}) : moment(),
             period: false,
 
+            mapPeriods: {},
+
             tmpStartDate: false,
             tmpEndDate: false,
         });
 
-        console.info('====> startDate', props.begin, this.startDate);
-        console.info('====> endDate', props.end, this.endDate);
         this.getPeriods();
     }
 
     getPeriods() {
         axios.get(
-            `/res/config/user/date_periods`, 
+            `/res/config/user/date_periods`,
             {
                 headers: {
                     'Content-Type': 'application/json'
@@ -58,15 +59,43 @@ class DateRange extends Component {
                 this.sysPeriods = res.data.system;
                 this.userPeriods = res.data.user;
 
+                this.preparePeriods();
                 this.getCurrentPeriodFromDates();
             }
         );
     }
 
+    preparePeriods() {
+
+    	const process = (periods) => {
+
+    		if(_.isArray(periods)) {
+    			periods.forEach((period) => {
+
+    				if (this.mapPeriods[period.name]) {
+    					return;
+    				}
+
+    				period.dateBegin = parseStringedDate(period.begin, {toString:true});
+    				period.dateEnd = parseStringedDate(period.end, {toString:true});
+    				this.mapPeriods[period.name] = period;
+    			});
+
+    		}
+    	}
+
+    	process(this.sysPeriods);
+    	process(this.userPeriods);
+    }
+
     getCurrentPeriodFromDates() {
         this.period = this.sysPeriods[0].name;
 
-        console.info('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>this.sysPeriods[0] ', this.period, this.sysPeriods);
+        let period = _.findKey(this.mapPeriods, (a) => {
+        	console.info(`----> FindKey: [${a.name}] ${a.dateBegin}, ${this.startDate.format('YYYY-MM-DD')}, ${a.dateEnd}, ${this.endDate.format('YYYY-MM-DD')}`);
+        	return a.dateBegin === this.startDate.format('YYYY-MM-DD') && a.dateEnd === this.endDate.format('YYYY-MM-DD');
+        });
+        console.info('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>this.sysPeriods[0] ', this.period, period);
     }
 
     // Open or close selector modal window
@@ -110,7 +139,7 @@ class DateRange extends Component {
 
         return (
             <div className="date-range-selector">
-                <MainButton 
+                <MainButton
                     id={`drs_${this._key}`}
                     onClickHandler={this.toggleSelectorModal}
                     label={this.btnLabel}

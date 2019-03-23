@@ -53,7 +53,7 @@ class PeriodsList extends Component {
     }
 
     periodChange(period, scope) {
-        this.props.onChange(period)
+        this.props.onChange(period);
         console.info(`>>> periodChange: ${scope}:${period}`);
     }
 

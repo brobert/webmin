@@ -96,15 +96,6 @@ class Dashboard extends React.Component {
                     <Col xl={3} className="mb-30">
                         <DateRange {...calendarOpt} />
                     </Col>
-                    <Col xl={3} className="mb-30">
-                        <DateRange {...calendarOpt} compare/>
-                    </Col>
-                    <Col xl={3} className="mb-30">
-                        <DateRange {...calendarOpt} begin="2018-01-01"/>
-                    </Col>
-                    <Col xl={3} className="mb-30">
-                        <DateRange {...calendarOpt} />
-                    </Col>
                 </Row>
                 <InfoPanelRow />
 

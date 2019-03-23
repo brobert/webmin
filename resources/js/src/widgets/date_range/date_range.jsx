@@ -9,10 +9,16 @@ import _ from 'underscore';
 
 import MainButton from './main_button.jsx';
 import PeriodsList from './periods_list.jsx';
-import { parseStringedDate } from './date_helpers';
+
+import DatePeriodStore from './date_period_store.js';
+import { CUSTOM_RANGE } from './constants.js';
 
 class DateRange extends Component {
 
+    /**
+     * Component Constructor
+     * @param {any} props
+     */
     constructor(props) {
         super(props);
 
@@ -28,23 +34,37 @@ class DateRange extends Component {
         this.handleChangeStart = this.handleChangeStart.bind(this);
 
         extendObservable(this, {
+
+            get dateBegin() {
+                const curr = this.currentTmp || this.current;
+                console.info(`extendObservable::dateBegin: ${curr.getStrDateBegin()}`);
+                return curr.getDateBegin();
+            },
+            get dateEnd() {
+                const curr = this.currentTmp || this.current;
+                console.info(`extendObservable::dateEnd: ${curr.getStrDateEnd()}`);
+                return curr.getDateEnd();
+            },
+
             btnLabel: '-----',
             modalOpened: false,
             sysPeriods: [],
             userPeriods: [],
-            startDate: props.begin ? parseStringedDate(props.begin, {toString:false}) : moment(),
-            endDate: props.end ? parseStringedDate(props.end, {toString:false}) : moment(),
             period: false,
-
+            periodTmp: false,
             mapPeriods: {},
-
-            tmpStartDate: false,
-            tmpEndDate: false,
         });
+
+        this.current = new DatePeriodStore({begin: props.begin, end: props.end, name: props.period || CUSTOM_RANGE})
 
         this.getPeriods();
     }
 
+    /**
+     * Load periods from serwer
+     * Calculate datePeriods
+     * Try to match selected periods based on dateBegin and dateEnd
+     */
     getPeriods() {
         axios.get(
             `/res/config/user/date_periods`,
@@ -61,41 +81,54 @@ class DateRange extends Component {
 
                 this.preparePeriods();
                 this.getCurrentPeriodFromDates();
+
+                console.info('this.current', this.current.getStrDateBegin(), this.current.getStrDateEnd());
+                console.info('this.currentTmp', this.currentTmp.getStrDateBegin(), this.currentTmp.getStrDateEnd());
             }
         );
     }
 
     preparePeriods() {
 
-    	const process = (periods) => {
+        const process = (periods) => {
 
-    		if(_.isArray(periods)) {
-    			periods.forEach((period) => {
+            if(_.isArray(periods)) {
+                periods.forEach((period) => {
 
-    				if (this.mapPeriods[period.name]) {
-    					return;
-    				}
+                    if (this.mapPeriods[period.name]) {
+                        return;
+                    }
 
-    				period.dateBegin = parseStringedDate(period.begin, {toString:true});
-    				period.dateEnd = parseStringedDate(period.end, {toString:true});
-    				this.mapPeriods[period.name] = period;
-    			});
+                    const dps = new DatePeriodStore(toJS(period), {compare: this.props.compare});
+                    this.mapPeriods[period.name] = dps;
+                });
 
-    		}
-    	}
+            }
+        }
 
-    	process(this.sysPeriods);
-    	process(this.userPeriods);
+        process(this.sysPeriods);
+        process(this.userPeriods);
     }
 
     getCurrentPeriodFromDates() {
-        this.period = this.sysPeriods[0].name;
 
-        let period = _.findKey(this.mapPeriods, (a) => {
-        	console.info(`----> FindKey: [${a.name}] ${a.dateBegin}, ${this.startDate.format('YYYY-MM-DD')}, ${a.dateEnd}, ${this.endDate.format('YYYY-MM-DD')}`);
-        	return a.dateBegin === this.startDate.format('YYYY-MM-DD') && a.dateEnd === this.endDate.format('YYYY-MM-DD');
+
+        let periodName = _.findKey(this.mapPeriods, (dps) => {
+            return (
+                dps.getStrDateBegin() === this.current.getStrDateBegin() &&
+                dps.getStrDateEnd() === this.current.getStrDateEnd()
+            );
         });
-        console.info('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>this.sysPeriods[0] ', this.period, period);
+
+        if (!this.mapPeriods[this.current.name]) {
+            this.mapPeriods[this.current.name] = this.current;
+        }
+
+        if (!periodName) {
+            periodName = CUSTOM_RANGE;
+        }
+        this.current = this.mapPeriods[periodName];
+        this.currentTmp = this.mapPeriods[periodName];
     }
 
     // Open or close selector modal window
@@ -109,9 +142,8 @@ class DateRange extends Component {
     }
 
     onChangePeriod(value = '') {
-        const ms = new Date().getMilliseconds();
-//        this.btnLabel = `++ selected dates [${value}]+++`;
-        this.period = value;
+        console.info('AAAAAAAAAAAAAAAAAAAAAAAAAAAAA', value);
+        this.currentTmp = this.mapPeriods[value]
     }
 
     daterangeChange({ startDate, endDate }) {
@@ -164,8 +196,8 @@ class DateRange extends Component {
                                         selected={this.startDate}
                                         selectsStart
                                         className="form-control"
-                                        startDate={this.startDate}
-                                        endDate={this.endDate}
+                                        startDate={this.dateBegin}
+                                        endDate={this.dateEnd}
                                         onChange={this.handleChangeStart}
                                         dateFormat="YYYY-MM-DD"
                                     />
@@ -174,8 +206,8 @@ class DateRange extends Component {
                                         selected={this.endDate}
                                         selectsEnd
                                         className="form-control"
-                                        startDate={this.startDate}
-                                        endDate={this.endDate}
+                                        startDate={this.dateBegin}
+                                        endDate={this.dateEnd}
                                         onChange={this.handleChangeEnd}
                                         dateFormat="YYYY-MM-DD"
                                     />

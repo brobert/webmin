@@ -37,13 +37,13 @@ class DateRange extends Component {
 
             get dateBegin() {
                 const curr = this.currentTmp || this.current;
-                console.info(`extendObservable::dateBegin: ${curr.getStrDateBegin()}`);
-                return curr.getDateBegin();
+//                console.info(`extendObservable::dateBegin: ${curr.getStrDateBegin()}`, curr.getDateBegin());
+                return toJS(curr.getDateBegin());
             },
             get dateEnd() {
                 const curr = this.currentTmp || this.current;
-                console.info(`extendObservable::dateEnd: ${curr.getStrDateEnd()}`);
-                return curr.getDateEnd();
+//                console.info(`extendObservable::dateEnd: ${curr.getStrDateEnd()}`, curr.getDateEnd());
+                return toJS(curr.getDateEnd());
             },
 
             btnLabel: '-----',
@@ -51,8 +51,10 @@ class DateRange extends Component {
             sysPeriods: [],
             userPeriods: [],
             period: false,
-            periodTmp: false,
+            current: false,
+            currentTmp: false,
             mapPeriods: {},
+
         });
 
         this.current = new DatePeriodStore({begin: props.begin, end: props.end, name: props.period || CUSTOM_RANGE})
@@ -82,8 +84,8 @@ class DateRange extends Component {
                 this.preparePeriods();
                 this.getCurrentPeriodFromDates();
 
-                console.info('this.current', this.current.getStrDateBegin(), this.current.getStrDateEnd());
-                console.info('this.currentTmp', this.currentTmp.getStrDateBegin(), this.currentTmp.getStrDateEnd());
+//                console.info('this.current', this.current.getStrDateBegin(), this.current.getStrDateEnd());
+//                console.info('this.currentTmp', this.currentTmp.getStrDateBegin(), this.currentTmp.getStrDateEnd());
             }
         );
     }
@@ -169,6 +171,9 @@ class DateRange extends Component {
 
     render() {
 
+    	console.info('this.dateBegin: ', this.dateBegin);
+    	console.info('this.dateEnd: ', this.dateEnd);
+
         return (
             <div className="date-range-selector">
                 <MainButton
@@ -193,7 +198,7 @@ class DateRange extends Component {
                             <Col>
                                 <div className="input-group" style={{flexWrap: 'nowrap'}} data-date="23/11/2018" data-date-format="mm/dd/yyyy">
                                     <DatePicker
-                                        selected={this.startDate}
+                                        selected={this.dateBegin}
                                         selectsStart
                                         className="form-control"
                                         startDate={this.dateBegin}
@@ -203,7 +208,7 @@ class DateRange extends Component {
                                     />
                                     <span style={{lineHeight: '3.4rem'}} >&nbsp;&nbsp;To &nbsp;&nbsp;</span>
                                     <DatePicker
-                                        selected={this.endDate}
+                                        selected={this.dateEnd}
                                         selectsEnd
                                         className="form-control"
                                         startDate={this.dateBegin}

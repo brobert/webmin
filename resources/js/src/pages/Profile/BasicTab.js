@@ -7,16 +7,30 @@ import './Profile.scss';
 
 class BasicTab extends React.Component {
 
+    constructor(props) {
+        super(props);
+
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    handleSubmit(event) {
+        event.preventDefault();
+        console.info('A name was submitted: ', this);
+    }
+
     render() {
         console.info('BasicTab::render', this.props);
+
         if (!this.props.user) {
             return <i className="fa fa-spin fa-spinner" />
         }
+
+        const user = this.props.user;
+
         return (
             <Card className="card-statistics mb-30">
                 <CardBody>
                     <CardTitle>Form row</CardTitle>
-                    <form>
+                    <form  onSubmit={this.handleSubmit}>
                         <div className="form-row">
                             <Col>
                                 <input type="text" className="form-control" placeholder="First name" />

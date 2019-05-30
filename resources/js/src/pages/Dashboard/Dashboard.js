@@ -84,7 +84,7 @@ class Dashboard extends React.Component {
             compare: false,
             changeChandler: (data) => {console.info('DateRange::changeChandler::data', data)},
             begin: 'last_0_week_begin',
-            end: 'yesterday'
+            end: 'last_0_week_end'
         };
 
         return (

@@ -23,12 +23,11 @@ class BestSellersCard extends Component {
             });
         }
     }
-    
+
     render() {
-        
+
         return (
             <Col xl={8} className="mb-30">
-                
                 <Card className="card-statistics h-100">
                     <CardBody>
                         <div className="tab nav-border" style={{ position: 'relative' }}>

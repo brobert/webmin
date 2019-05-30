@@ -11,7 +11,7 @@ import MainButton from './main_button.jsx';
 import PeriodsList from './periods_list.jsx';
 
 import DatePeriodStore from './date_period_store.js';
-import { CUSTOM_RANGE } from './constants.js';
+import constants, { CUSTOM_RANGE } from './constants.js';
 
 class DateRange extends Component {
 
@@ -22,7 +22,7 @@ class DateRange extends Component {
     constructor(props) {
         super(props);
 
-        console.info('DateRange::constructor(props) ', props);
+        console.info('>>> DateRange::constructor(props) ', constants, CUSTOM_RANGE, props);
         this._key = new Date().getMilliseconds();
 
         this.onChangePeriod = this.onChangePeriod.bind(this);
@@ -44,6 +44,10 @@ class DateRange extends Component {
                 const curr = this.currentTmp || this.current;
 //                console.info(`extendObservable::dateEnd: ${curr.getStrDateEnd()}`, curr.getDateEnd());
                 return toJS(curr.getDateEnd());
+            },
+
+            get currentPeriod() {
+                return this.currentTmp ? this.currentTmp.name : this.current.name;
             },
 
             btnLabel: '-----',
@@ -144,8 +148,7 @@ class DateRange extends Component {
     }
 
     onChangePeriod(value = '') {
-        console.info('AAAAAAAAAAAAAAAAAAAAAAAAAAAAA', value);
-        this.currentTmp = this.mapPeriods[value]
+        this.currentTmp = this.mapPeriods[value] ? this.mapPeriods[value] : this.currentTmp;
     }
 
     daterangeChange({ startDate, endDate }) {
@@ -162,6 +165,7 @@ class DateRange extends Component {
     }
 
     handleChangeStart(startDate) {
+        console.info('====> handleChangeStart::keys(this.mapPeriods): ',_.keys(this.mapPeriods));
         this.daterangeChange({ startDate })
     }
 
@@ -191,7 +195,7 @@ class DateRange extends Component {
                                     sysPeriods={this.sysPeriods}
                                     userPeriods={this.userPeriods}
                                     onChange={this.onChangePeriod}
-                                    period = {this.period}
+                                    period = {this.currentPeriod}
                                     compare = {this.props.compare}
                                 />
                             </Col>

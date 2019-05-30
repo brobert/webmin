@@ -22,10 +22,10 @@ class Tabss extends React.Component {
             ready: false,
             authUser: window.authUser,
         };
-        
+
         console.info('Tabss::constructor', this.state);
     }
-    
+
     componentDidMount() {
         console.info('Tabss::componentDidMount', this.state);
         if (this.state.authUser) {

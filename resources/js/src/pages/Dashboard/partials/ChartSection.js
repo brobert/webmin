@@ -4,7 +4,7 @@ import { Card, CardBody, CardTitle, Row, Col, Dropdown, DropdownToggle, Dropdown
 import InfoPanel from './InfoPanel';
 
 var rFactor = function (multi) {
-    
+
     multi = multi === undefined ? 500 : multi;
     return Math.round(Math.random() * multi);
 };
@@ -144,7 +144,7 @@ class ChartSection extends Component {
                 lineData: lineData(),
             })
         }, 10 * rFactor(500));
-        
+
         this.onBarRefresh(1);
         this.onBarRefresh(2);
 
@@ -185,7 +185,7 @@ class ChartSection extends Component {
     onItemClick() {
         console.info('#############################################');
     }
-    
+
     onBarRefresh(key=1) {
         axios.get(
             `/res/dashboard/bar-data`,
@@ -205,6 +205,8 @@ class ChartSection extends Component {
     }
 
     render() {
+
+    	console.info('>>>>>>>>>>>>>>>>>>> this.state.barData_1: ', this.state.barData_1);
         return (
             <Row>
                 <Col xl={4} className="mb-30">
@@ -225,7 +227,7 @@ class ChartSection extends Component {
                         </div>
                         <CardBody>
                             <div className="d-block">
-                                <CardTitle>Market summary 1</CardTitle>
+                                <CardTitle>Market summary 1......</CardTitle>
                             </div>
                             <div className="row h-100 justify-content-center align-items-center">
                                 <div className="col-4 text-center">
@@ -246,7 +248,7 @@ class ChartSection extends Component {
 
                             <div className="chart-wrapper" style={{height: 350}}>
                                 <Bar
-                                    data={this.state.barData_1}
+                                    data={this.state.lineData}
                                     width={this.state.widths}
                                     options={
                                         {
@@ -263,7 +265,7 @@ class ChartSection extends Component {
                                             }
                                         }
                                     }
-                                    className="scrollbar-x text-center" 
+                                    className="scrollbar-x text-center"
                                 />
                             </div>
                         </CardBody>
@@ -292,12 +294,12 @@ class ChartSection extends Component {
                                 <h6>Bruen-Kunze</h6>
                                 <b className="text-info">+ 82.24 % </b>
                             </div>
-    
+
                             <div className="col-4 text-center">
                                 <h6>Kirlin-Kunze</h6>
                                 <b className="text-warning">+ 24.86 % </b>
                             </div>
-    
+
                             <div className="col-4 text-center">
                                 <h6>Balistreri, Larson and Wintheiser</h6>
                                 <b className="text-warning">+ 78.86 % </b>
@@ -323,7 +325,7 @@ class ChartSection extends Component {
                                         }
                                     }
                                 }
-                                className="scrollbar-x text-center" 
+                                className="scrollbar-x text-center"
                             />
                         </div>
                     </CardBody>
@@ -361,7 +363,7 @@ class ChartSection extends Component {
                                 </div>
                             </div>
                             <div className="chart-wrapper" style={{height: 350}}>
-                                <Line 
+                                <Line
                                     data={this.state.lineData}
                                     className="scrollbar-x text-center"
                                     options={
@@ -373,7 +375,7 @@ class ChartSection extends Component {
                                                 xAxes: [{gridLines: {display: false}, ticks:{fontFamily: "Poppins"}}]
                                             }
                                         }
-                                    } 
+                                    }
                                 />
                             </div>
                         </CardBody>

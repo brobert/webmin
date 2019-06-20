@@ -7,7 +7,7 @@ import InfoPanel from 'widgets/InfoPanel';
 
 
 class InfoPanelRow extends Component {
-    
+
     render() {
         return (
             <Row>

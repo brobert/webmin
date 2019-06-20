@@ -89,18 +89,18 @@ const Routers = (globalProps) => {
                     <Route path="/tables" component={Tables} />
                     <Route path="/forminput" component={Forminputs} />
                     <Route path="/formvalidation" component={Formvalidations} />
-                    <Route path="/inputgroup" component={Formgroups} /> 
+                    <Route path="/inputgroup" component={Formgroups} />
                     <Route path="/error" component={Errors} />
-                    <Route path="/eventcalendar" component={Eventcalendar} /> 
+                    <Route path="/eventcalendar" component={Eventcalendar} />
                     <Route path="/blankpage" component={Blankpage}/>
                     <Route path="/faq" component={Faq}/>
                     <Route path="/contacts" component={Contacts}/>
                     <Route path="/invoice" component={Invoice}/>
                     <Route path="/widget" component={Widgets} />
-                    <Route path="/chat" component={Chat} />
+                    <Route path="/chat/:id" component={Chat} />
                     <Route path="/mailbox" component={Mail} />
                     <Route path="/profile" component={Profile} />
-                </Switch> 
+                </Switch>
             </Base>
         );
     }

@@ -12,6 +12,7 @@ import './Chat.css';
 class Chat extends React.Component {
 
     constructor(props) {
+    	console.info('-------------------', props)
         super(props);
         this.dropdownbarOpen = this.dropdownbarOpen.bind(this);
         this.toggle = this.toggle.bind(this);
@@ -68,6 +69,7 @@ class Chat extends React.Component {
     }
 
     toggle(tab, name) {
+		this.props.history.push(`/chat/${tab}`);
         if (this.state.activeTab !== tab) {
             this.setState({
                 activeTab: tab,
@@ -105,7 +107,7 @@ class Chat extends React.Component {
      */
     render() {
         console.info('STATE CHANGE', this.state);
-        
+
         if (this.state.unauthorized) {
             return (
                 <Redirect to={{pathname: '/login'}}/>
@@ -118,20 +120,21 @@ class Chat extends React.Component {
         this.state.chats.map(
             (chat, idx) => {
                 chatSwitchers.push (
-                    <ChatSwitcher 
-                        key={`${idx}`} 
-                        onClick={this.toggle} 
-                        chat={chat} 
-                        authUser={this.state.authUser} 
+                    <ChatSwitcher
+                        key={`${idx}`}
+                        onClick={this.toggle}
+                        chat={chat}
+                        authUser={this.state.authUser}
+                    	isActive={parseInt(chat.id,10) === parseInt(this.state.activeTab, 10)}
                     />
                 );
 
                 chatContents.push(
-                    <ChatContent 
-                        key={`${idx}`} 
-                        chat={chat} 
-                        active={parseInt(chat.id,10) === parseInt(this.state.activeTab, 10)} 
-                        authUser={this.state.authUser} 
+                    <ChatContent
+                        key={`${idx}`}
+                        chat={chat}
+                        active={parseInt(chat.id,10) === parseInt(this.state.activeTab, 10)}
+                        authUser={this.state.authUser}
                     />
                 );
             }
@@ -139,7 +142,7 @@ class Chat extends React.Component {
 
         return (
             <div>
-                <PageTitle pageTitle="Chat" crumbs={[{to: 'chat', title: 'Chat'}]} />
+                <PageTitle pageTitle="Chat with ..." crumbs={[{to: 'chat', title: 'Chat'}]} />
                 {/* main body */}
                 <Row>
                     <Col lg={12} className="mb-30">
@@ -193,7 +196,7 @@ class Chat extends React.Component {
                                                         <div className="chat-input-icon">
                                                             <a className="text-muted" href="javascript:void(0);"><i className="fa fa-smile-o" /> </a>
                                                         </div>
-                                                        <textarea 
+                                                        <textarea
                                                             className="form-control input-message scrollbar"
                                                             placeholder="Type here...*"
                                                             rows={2}

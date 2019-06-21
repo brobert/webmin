@@ -10,7 +10,7 @@ class ChatSwitcher extends React.Component {
         const userNames = chat.users.filter(user => user.id !== authUser.id).map(user => user.name).join(', ');
 
         return (
-            <NavItem onClick={() => { this.props.onClick(`${chat.id}`, chat.name); }} className="pt-15 pr-15">
+            <NavItem onClick={() => { this.props.onClick(`${chat.id}`, chat.name); }} className="pt-15 pr-15 active">
                 <div className="media px-2">
                     <div className="position-relative">
                         <img className="img-fluid mr-15 avatar-small" src="assets/images/team/01.jpg" alt="Ala 100" />

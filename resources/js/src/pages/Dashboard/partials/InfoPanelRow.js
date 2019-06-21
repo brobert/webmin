@@ -3,7 +3,7 @@ import { Row, Col } from 'reactstrap';
 //import InfoPanel from './InfoPanel';
 
 import LeavePanel from 'widgets/LeavePanel';
-import InfoPanel from 'widgets/InfoPanel';
+import InfoPanel from 'widgets/info_panel/info_panel';
 
 
 class InfoPanelRow extends Component {
@@ -15,7 +15,7 @@ class InfoPanelRow extends Component {
                     <LeavePanel />
                 </Col>
                 <Col xl={3} lg={6} md={6} className="mb-30" >
-                    <InfoPanel 
+                    <InfoPanel
                         label="Orders"
                         value="656"
                         theme="warning"
@@ -25,7 +25,7 @@ class InfoPanelRow extends Component {
                     />
                 </Col>
                 <Col xl={3} lg={6} md={6} className="mb-30" >
-                    <InfoPanel 
+                    <InfoPanel
                         label="Revenue"
                         value="$65656"
                         theme="success"
@@ -35,7 +35,7 @@ class InfoPanelRow extends Component {
                     />
                 </Col>
                 <Col xl={3} lg={6} md={6} className="mb-30" >
-                    <InfoPanel 
+                    <InfoPanel
                         label="Followers"
                         value="62,500+"
                         theme="primary"

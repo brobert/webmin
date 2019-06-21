@@ -2,6 +2,7 @@
  * 
  */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Card, CardBody, CardTitle } from 'reactstrap';
 
 class InfoPanel extends React.Component {
@@ -46,5 +47,18 @@ class InfoPanel extends React.Component {
         );
     }
 }
+
+InfoPanel.propTypes = {
+    theme: PropTypes.string,
+    icon: PropTypes.string,
+    exclamationIcon: PropTypes.string,
+    label: PropTypes.string,
+    exclamationText: PropTypes.string,
+};
+
+InfoPanel.defaultProps = {
+        theme: 'primary',
+        exclamationText: '',
+      };
 
 export default InfoPanel;

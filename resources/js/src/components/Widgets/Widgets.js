@@ -15,6 +15,7 @@ import {
     Geography,
 } from "react-simple-maps"
 import { METHODS } from 'http';
+import InfoPanel from 'widgets/info_panel/info_panel';
 
 //Doughnut Chart
 const doughnutData = {
@@ -146,6 +147,15 @@ class Widgets extends React.Component {
         console.log(start);
     };
     render() {
+        
+        const IPVisitors = {
+            icon:"bar-chart-o",
+            label:"Visitors...",
+            value:"65,650",
+            theme:"danger",
+            exclamationIcon:"exclamation-circle",
+            exclamationText:"81% lower growth",
+        }
         const DnDCalendar = withDragAndDrop(Calendar);
         return (
             <div>
@@ -163,86 +173,40 @@ class Widgets extends React.Component {
                     </Row>
                 </div>
                 {/* widgets */}
+
                 <Row>
                     <Col xl={3} md={6} lg={6} className="mb-30" >
-                        <Card className="card-statistics h-100">
-                            <CardBody>
-                                <div className="clearfix">
-                                    <div className="float-left">
-                                        <span className="text-danger">
-                                            <i className="fa fa-bar-chart-o highlight-icon" aria-hidden="true" />
-                                        </span>
-                                    </div>
-                                    <div className="float-right text-right">
-                                        <p className="card-text text-dark">Visitors</p>
-                                        <h4>65,650</h4>
-                                    </div>
-                                </div>
-                                <p className="text-muted mt-3 pt-3 border-top">
-                                    <i className="fa fa-exclamation-circle mr-1" aria-hidden="true" /> 81% lower growth
-                                </p>
-                            </CardBody>
-                        </Card>
+                        <InfoPanel {...IPVisitors}/>
                     </Col>
                     <Col xl={3} md={6} lg={6} className="mb-30" >
-                        <Card className="card card-statistics h-100">
-                            <CardBody>
-                                <div className="clearfix">
-                                    <div className="float-left">
-                                        <span className="text-warning">
-                                            <i className="fa fa-shopping-cart highlight-icon" aria-hidden="true" />
-                                        </span>
-                                    </div>
-                                    <div className="float-right text-right">
-                                        <p className="card-text text-dark">Orders</p>
-                                        <h4>656</h4>
-                                    </div>
-                                </div>
-                                <p className="text-muted mt-3 pt-3 border-top">
-                                    <i className="fa fa-bookmark-o mr-1" aria-hidden="true" /> Total sales
-                                </p>
-                            </CardBody>
-                        </Card>
+                        <InfoPanel
+                            icon="shopping-cart"
+                            label="Orders"
+                            value="656"
+                            theme="warning"
+                            exclamationIcon="bookmark-o"
+                            exclamationText="Total sales"
+                        />
                     </Col>
                     <Col xl={3} md={6} lg={6} className="mb-30" >
-                        <Card className="card card-statistics h-100">
-                            <CardBody>
-                                <div className="clearfix">
-                                    <div className="float-left">
-                                        <span className="text-success">
-                                            <i className="fa fa-dollar highlight-icon" aria-hidden="true" />
-                                        </span>
-                                    </div>
-                                    <div className="float-right text-right">
-                                        <p className="card-text text-dark">Revenue</p>
-                                        <h4>$65656</h4>
-                                    </div>
-                                </div>
-                                <p className="text-muted mt-3 pt-3 border-top">
-                                    <i className="fa fa-calendar mr-1" aria-hidden="true" /> Sales Per Week
-                                </p>
-                            </CardBody>
-                        </Card>
+                        <InfoPanel
+                            icon="dollar"
+                            label="Revenue"
+                            value="$65656"
+                            theme="success"
+                            exclamationIcon="calendar"
+                            exclamationText="Sales Per Week"
+                        />
                     </Col>
                     <Col xl={3} md={6} lg={6} className="mb-30" >
-                        <Card className="card card-statistics h-100 admin-followers">
-                            <CardBody>
-                                <div className="clearfix">
-                                    <div className="float-left">
-                                        <span className="text-primary">
-                                            <i className="fa fa-twitter highlight-icon" aria-hidden="true" />
-                                        </span>
-                                    </div>
-                                    <div className="float-right text-right">
-                                        <p className="card-text text-dark">Followers</p>
-                                        <h4>62,500+</h4>
-                                    </div>
-                                </div>
-                                <p className="text-muted mt-3 pt-3 border-top">
-                                    <i className="fa fa-repeat mr-1" aria-hidden="true" /> Just Updated
-                                </p>
-                            </CardBody>
-                        </Card>
+                        <InfoPanel
+                            icon="twitter"
+                            label="Followers"
+                            value="62,500+"
+                            theme="primary"
+                            exclamationIcon="exclamation-circle"
+                            exclamationText="Just Updated"
+                        />
                     </Col>
                 </Row>
 

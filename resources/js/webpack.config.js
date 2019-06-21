@@ -10,6 +10,7 @@ const PATHS = {
     build: path.join(__dirname, 'dist')
 };
 var baseHref = process.env.WP_BASE_HREF ? process.env.WP_BASE_HREF : '/';
+
 module.exports = {
     entry: path.join(__dirname, "/src/index.js"),
     resolve: {

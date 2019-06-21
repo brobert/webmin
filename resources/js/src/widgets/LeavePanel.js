@@ -2,7 +2,7 @@
  * 
  */
 import React, { Component } from 'react';
-import InfoPanel from './InfoPanel';
+import InfoPanel from 'widgets/info_panel/info_panel';
 
 class LeavePanel extends React.Component {
 

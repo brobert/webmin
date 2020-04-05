@@ -5,7 +5,7 @@
   "private": true,
   "dependencies": {
     "@tinymce/tinymce-react": "^2.2.5",
-    "acorn": "^6.0.0",
+    "acorn": "^6.4.1",
     "ajv-keywords": "^3.2.0",
     "axios": "^0.18.0",
     "babel-cli": "6.26.0",
